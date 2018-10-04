@@ -1,5 +1,6 @@
 package com.example.benjamin.moviesapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,14 +19,28 @@ public class AppActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        Thread myThread = new Thread() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void run() {
+                try
+
+                {
+                    sleep(4000);
+                    Intent intent = new Intent(getApplicationContext(), MainScrolling.class);
+                    startActivity(intent);
+                    finish();
+                }
+                catch(
+                        InterruptedException e)
+
+                {
+                    e.printStackTrace();
+                }
+
             }
-        });
+        };
+        myThread.start();
+
     }
 
     @Override
