@@ -1,12 +1,16 @@
 package com.example.benjamin.moviesapp;
 
+import android.content.Intent;
 import android.net.Uri;
+import android.service.chooser.ChooserTarget;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,6 +35,7 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
         private TextView movieLanguage;
         private TextView movieRate;
         private ImageView moviePoster;
+        private Button movieShare;
 
         public ViewHolder (View v){
             super(v);
@@ -41,6 +46,7 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
             this.movieRate=v.findViewById(R.id.movieRate);
             this.movieLanguage=v.findViewById(R.id.movieLanguage);
             this.moviePoster=v.findViewById(R.id.moviePoster);
+            this.movieShare=v.findViewById(R.id.shareButton);
 
         }
     }
@@ -78,7 +84,16 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
 
         }
         holder.movieRate.setText("vote average: "+listMovies.get(i).get("voteAvg").toString());
+        holder.movieShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainPage.context, SendSms.class);
+                MainPage.context.startActivity(intent);
+
+            }
+        });
     }
+    
 
     @Override
     public int getItemCount() {

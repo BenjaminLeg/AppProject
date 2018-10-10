@@ -24,7 +24,7 @@ public class GetMoviesParseTask extends AsyncTask<Void,Void,Void> {
     private static final String API_KEY_1 = "c34c9bc397499bb9c5cf79c5f73350d6";
     private static final String myURL = "https://api.themoviedb.org/3/";
     private static final String optionTrending = "trending/movie/day?";
-    private static final String TAG = MainScrolling.class.getSimpleName();
+    private static final String TAG = MainPage.class.getSimpleName();
 
     private final OnLoadingListener listener;
     public ArrayList<HashMap<String,String>> movieList;
@@ -38,7 +38,7 @@ public class GetMoviesParseTask extends AsyncTask<Void,Void,Void> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        Toast.makeText(MainScrolling.context, "Json Data is downloading", Toast.LENGTH_LONG).show();
+        Toast.makeText(MainPage.context, "Json Data is downloading", Toast.LENGTH_LONG).show();
     }
     @Override
     protected Void doInBackground(Void... params) {
