@@ -26,6 +26,7 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
         private TextView moviePlot;
         private TextView movieTitle;
         private TextView movieDate;
+        private TextView movieLanguage;
         private TextView movieRate;
 
         public ViewHolder (View v){
@@ -35,6 +36,7 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
             this.movieTitle=v.findViewById(R.id.movieTitle);
             this.movieDate=v.findViewById(R.id.movieDate);
             this.movieRate=v.findViewById(R.id.movieRate);
+            this.movieLanguage=v.findViewById(R.id.movieLanguage);
 
 
         }
@@ -57,7 +59,18 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
         holder.movieTitle.setText(listMovies.get(i).get("title").toString());
         holder.movieDate.setText(listMovies.get(i).get("release_date").toString());
         holder.moviePlot.setText(listMovies.get(i).get("overview").toString());
-        holder.movieRate.setText(listMovies.get(i).get("original_language").toString());
+        holder.movieRate.setText(listMovies.get(i).get("vote_average"));
+        switch(listMovies.get(i).get("original_language")){
+            case "en":
+                holder.movieLanguage.setText("English");
+                break;
+            case "fr":
+                holder.movieLanguage.setText("French");
+                break;
+            default :
+                holder.movieLanguage.setText("Unknown language");
+
+        }
     }
 
     @Override

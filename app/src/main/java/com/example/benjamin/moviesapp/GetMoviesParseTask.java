@@ -61,6 +61,7 @@ public class GetMoviesParseTask extends AsyncTask<Void,Void,Void> {
                     String release_date = c.getString("release_date");
                     String original_language = c.getString("original_language");
                     String overview = c.getString("overview");
+                    String vote_average = c.getString("vote_average");
 
                     // tmp hash map for single contact
                     HashMap<String, String> movie = new HashMap<>();
@@ -71,6 +72,7 @@ public class GetMoviesParseTask extends AsyncTask<Void,Void,Void> {
                     movie.put("release_date", release_date);
                     movie.put("original_language", original_language);
                     movie.put("overview", overview);
+                    movie.put("vote_average", vote_average);
 
 
                     // adding contact to contact list
