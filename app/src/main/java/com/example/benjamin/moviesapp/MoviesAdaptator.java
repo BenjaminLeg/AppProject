@@ -2,6 +2,7 @@ package com.example.benjamin.moviesapp;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,16 +53,16 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int size) {
-            holder.movieTitle.setText(listMovies.get(size).get("title").toString());
-            holder.movieDate.setText(listMovies.get(size).get("release_date").toString());
-            holder.moviePlot.setText(listMovies.get(size).get("overview").toString());
-            holder.movieRate.setText(listMovies.get(size).get("original_language").toString());
-
+    public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
+        holder.movieTitle.setText(listMovies.get(i).get("title").toString());
+        holder.movieDate.setText(listMovies.get(i).get("release_date").toString());
+        holder.moviePlot.setText(listMovies.get(i).get("overview").toString());
+        holder.movieRate.setText(listMovies.get(i).get("original_language").toString());
     }
 
     @Override
     public int getItemCount() {
+
         return listMovies.size();
     }
 
