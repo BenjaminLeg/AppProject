@@ -1,11 +1,13 @@
 package com.example.benjamin.moviesapp;
 
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -27,6 +29,8 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
         private TextView movieTitle;
         private TextView movieDate;
         private TextView movieRate;
+        private TextView movieLanguage;
+        private ImageView moviePoster;
 
         public ViewHolder (View v){
             super(v);
@@ -35,6 +39,8 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
             this.movieTitle=v.findViewById(R.id.movieTitle);
             this.movieDate=v.findViewById(R.id.movieDate);
             this.movieRate=v.findViewById(R.id.movieRate);
+            this.movieLanguage=v.findViewById(R.id.movieLanguage);
+            this.moviePoster=v.findViewById(R.id.moviePoster);
 
 
         }
@@ -54,10 +60,14 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
+        String posterURL="https://image.tmdb.org/t/p/w500"+listMovies.get(i).get("posterSrc").toString();
+        MoviePosterLoadTask poster=new MoviePosterLoadTask(posterURL,holder.moviePoster);
+        poster.execute();
         holder.movieTitle.setText(listMovies.get(i).get("title").toString());
         holder.movieDate.setText(listMovies.get(i).get("release_date").toString());
         holder.moviePlot.setText(listMovies.get(i).get("overview").toString());
-        holder.movieRate.setText(listMovies.get(i).get("original_language").toString());
+        holder.movieRate.setText("vote average: "+listMovies.get(i).get("voteAvg").toString());
+        holder.movieLanguage.setText(listMovies.get(i).get("original_language").toString());
     }
 
     @Override
