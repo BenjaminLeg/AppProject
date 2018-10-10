@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import info.movito.themoviedbapi.model.MovieDb;
@@ -14,11 +16,8 @@ import info.movito.themoviedbapi.model.core.MovieResultsPage;
 
 public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHolder> {
 
-    private List<MovieDb> movies;
+    private ArrayList<HashMap<String,String>> listMovies;
 
-    public MoviesAdaptator() {
-
-    }
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
@@ -40,8 +39,8 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
         }
     }
 
-    public MoviesAdaptator(List<MovieDb> moviesResults){
-        movies=moviesResults;
+    public MoviesAdaptator(ArrayList<HashMap<String,String>> moviesResults){
+        listMovies=moviesResults;
 
     }
     @NonNull
@@ -53,16 +52,17 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
-        holder.movieTitle.setText(movies.get(i).getTitle());
-        holder.movieDate.setText(movies.get(i).getReleaseDate());
-        holder.moviePlot.setText(movies.get(i).getOverview());
-        holder.movieRate.setText(Float.toString(movies.get(i).getPopularity()));
+    public void onBindViewHolder(@NonNull ViewHolder holder, int size) {
+            holder.movieTitle.setText(listMovies.get(size).get("title").toString());
+            holder.movieDate.setText(listMovies.get(size).get("release_date").toString());
+            holder.moviePlot.setText(listMovies.get(size).get("overview").toString());
+            holder.movieRate.setText(listMovies.get(size).get("original_language").toString());
+
     }
 
     @Override
     public int getItemCount() {
-        return movies.size();
+        return listMovies.size();
     }
 
 
