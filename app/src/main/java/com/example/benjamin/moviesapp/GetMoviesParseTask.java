@@ -19,6 +19,7 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class GetMoviesParseTask extends AsyncTask<Void,Void,Void> {
     private static final String API_KEY_1 = "c34c9bc397499bb9c5cf79c5f73350d6";
@@ -27,9 +28,10 @@ public class GetMoviesParseTask extends AsyncTask<Void,Void,Void> {
     private static final String TAG = MainPage.class.getSimpleName();
 
     private final OnLoadingListener listener;
-    public ArrayList<HashMap<String,String>> movieList;
+   // public ArrayList<HashMap<String,String>> movieList;
+    public List<Movie> movieList;
 
-    public GetMoviesParseTask(OnLoadingListener listener, ArrayList movieList) {
+    public GetMoviesParseTask(OnLoadingListener listener, List<Movie> movieList) {
         this.listener = listener;
         this.movieList = movieList;
     }
@@ -64,20 +66,21 @@ public class GetMoviesParseTask extends AsyncTask<Void,Void,Void> {
                     String posterSrc = c.getString("poster_path");
                     String voteAvg = c.getString("vote_average");
                     // tmp hash map for single contact
-                    HashMap<String, String> movie = new HashMap<>();
+                    //HashMap<String, String> movie = new HashMap<>();
+                    Movie movieElm=new Movie(id,title,release_date,original_language,overview,posterSrc,voteAvg);
 
                     // adding each child node to HashMap key => value
-                    movie.put("id", id);
+   /*                 movie.put("id", id);
                     movie.put("title", title);
                     movie.put("release_date", release_date);
                     movie.put("original_language", original_language);
                     movie.put("overview", overview);
                     movie.put("posterSrc",posterSrc);
                     movie.put("voteAvg",voteAvg);
-
+*/
 
                     // adding contact to contact list
-                    movieList.add(movie);
+                    movieList.add(movieElm);
                 }
             } catch (final JSONException e) {
                 Log.e(TAG, "Json parsing error: " + e.getMessage());

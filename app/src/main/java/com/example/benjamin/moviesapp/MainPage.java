@@ -5,38 +5,28 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.recyclerview.extensions.ListAdapter;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class MainPage extends AppCompatActivity implements OnLoadingListener {
     public static Context context;
     private GetMoviesParseTask mMovieParser = null;
-    private DrawerLayout drawerLayout;
 
     List<Movie> moviesList;
     RecyclerView recyclerView;
@@ -47,7 +37,6 @@ public class MainPage extends AppCompatActivity implements OnLoadingListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_scrolling);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        FloatingActionButton addBtn;
         setSupportActionBar(toolbar);
         context = this;
 
@@ -110,7 +99,7 @@ public class MainPage extends AppCompatActivity implements OnLoadingListener {
                 }
         );
 
-        moviesList = new ArrayList<>();
+
         moviesList=new ArrayList<Movie>();
         mMovieParser = new GetMoviesParseTask(this, moviesList);
         mMovieParser.execute();
