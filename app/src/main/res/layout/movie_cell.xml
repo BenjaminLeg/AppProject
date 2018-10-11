@@ -24,12 +24,9 @@
             android:id="@+id/movieTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:textSize="15sp"/>
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+
             <TextView
                 android:id="@+id/movieDate"
                 android:layout_width="wrap_content"
@@ -47,20 +44,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="10sp"/>
-        <Button
-            android:id="@+id/shareButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Share"/>
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/moviePlot"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="7sp"
-            />
-
+            <TextView
+                android:id="@+id/moviePlot"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="7sp"
+                />
+            <Button
+                android:id="@+id/shareButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Share"/>
 
     </LinearLayout>
 
+</LinearLayout>

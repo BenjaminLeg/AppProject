@@ -38,7 +38,7 @@ public class GetMoviesParseTask extends AsyncTask<Void,Void,Void> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        Toast.makeText(MainPage.context, "Json Data is downloading", Toast.LENGTH_LONG).show();
+        Toast.makeText(MainPage.context, "Json Data is downloading", Toast.LENGTH_SHORT).show();
     }
     @Override
     protected Void doInBackground(Void... params) {
