@@ -1,6 +1,8 @@
 package com.example.benjamin.moviesapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.service.chooser.ChooserTarget;
 import android.support.annotation.NonNull;
@@ -11,21 +13,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.List;
 
-import info.movito.themoviedbapi.model.MovieDb;
-import info.movito.themoviedbapi.model.core.MovieResultsPage;
 
 public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHolder> {
 
-    private ArrayList<HashMap<String,String>> listMovies;
-
-
+    private List<Movie> listMovies;
+    private File favoris;
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -36,6 +37,7 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
         private TextView movieRate;
         private ImageView moviePoster;
         private Button movieShare;
+        private ImageButton movieFavorite;
 
         public ViewHolder (View v){
             super(v);
@@ -47,11 +49,12 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
             this.movieLanguage=v.findViewById(R.id.movieLanguage);
             this.moviePoster=v.findViewById(R.id.moviePoster);
             this.movieShare=v.findViewById(R.id.shareButton);
+            this.movieFavorite=v.findViewById(R.id.favoriteButton);
 
         }
     }
 
-    public MoviesAdaptator(ArrayList<HashMap<String,String>> moviesResults){
+    public MoviesAdaptator(List<Movie> moviesResults){
         listMovies=moviesResults;
 
     }
@@ -60,19 +63,20 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
         View view = inflater.inflate(R.layout.movie_cell, viewGroup, false);
+        favoris = new File(viewGroup.getContext().getFilesDir(), "favoris");
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
-        String posterURL="https://image.tmdb.org/t/p/w500"+listMovies.get(i).get("posterSrc").toString();
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int i) {
+        String posterURL="https://image.tmdb.org/t/p/w500"+listMovies.get(i).getPoster_path();
         MoviePosterLoadTask poster=new MoviePosterLoadTask(posterURL,holder.moviePoster);
         poster.execute();
-        holder.movieTitle.setText(listMovies.get(i).get("title").toString());
-        holder.movieDate.setText(listMovies.get(i).get("release_date").toString());
-        holder.moviePlot.setText(listMovies.get(i).get("overview").toString());
-        holder.movieRate.setText(listMovies.get(i).get("vote_average"));
-        switch(listMovies.get(i).get("original_language")){
+        holder.movieTitle.setText(listMovies.get(i).getTitle());
+        holder.movieDate.setText(listMovies.get(i).getRelease_date());
+        holder.moviePlot.setText(listMovies.get(i).getOverview());
+
+        switch(listMovies.get(i).getOriginal_language()){
             case "en":
                 holder.movieLanguage.setText("English");
                 break;
@@ -83,13 +87,32 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
                 holder.movieLanguage.setText("Unknown language");
 
         }
-        holder.movieRate.setText("vote average: "+listMovies.get(i).get("voteAvg").toString());
+        holder.movieRate.setText("vote average: "+listMovies.get(i).getVoteAvg());
         holder.movieShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainPage.context, SendSms.class);
                 MainPage.context.startActivity(intent);
 
+            }
+        });
+
+        holder.movieFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String filename="favoris";
+                String content=listMovies.get(i).getId();
+                FileOutputStream stream;
+                try{
+                    stream = v.getContext().openFileOutput(filename, Context.MODE_PRIVATE);
+                    stream.write(content.getBytes());
+                    stream.close();
+                    Log.e("DebugPerso","favori ajouté");
+                    holder.movieFavorite.setImageResource(android.R.drawable.btn_star_big_on);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         });
     }

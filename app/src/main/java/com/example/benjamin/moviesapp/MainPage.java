@@ -21,14 +21,17 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class MainPage extends AppCompatActivity implements OnLoadingListener {
     public static Context context;
     private GetMoviesParseTask mMovieParser = null;
 
-    ArrayList<HashMap<String, String>> moviesList;
+    List<Movie> moviesList;
     RecyclerView recyclerView;
 
 
@@ -37,6 +40,7 @@ public class MainPage extends AppCompatActivity implements OnLoadingListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_scrolling);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        FloatingActionButton addBtn;
         setSupportActionBar(toolbar);
         context = this;
 
@@ -49,14 +53,14 @@ public class MainPage extends AppCompatActivity implements OnLoadingListener {
             }
         });
 
-        moviesList = new ArrayList<>();
+        moviesList=new ArrayList<Movie>();
         mMovieParser = new GetMoviesParseTask(this, moviesList);
         mMovieParser.execute();
 
 
 
 
-    }
+        }
 
 
   /*  @Override
