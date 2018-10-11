@@ -66,6 +66,7 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
         if(favoris!=null) {
             favoris = new File(viewGroup.getContext().getFilesDir(), "favoris");
         }
+        favoris = new File(viewGroup.getContext().getFilesDir(), "favoris");
         return new ViewHolder(view);
     }
 
