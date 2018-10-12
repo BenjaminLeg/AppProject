@@ -63,13 +63,15 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
         View view = inflater.inflate(R.layout.movie_cell, viewGroup, false);
-        favoris = new File(viewGroup.getContext().getFilesDir(), "favoris");
+        if(favoris!=null) {
+            favoris = new File(viewGroup.getContext().getFilesDir(), "favoris");
+        }
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int i) {
-        String posterURL="https://image.tmdb.org/t/p/w500"+listMovies.get(i).getPoster_path();
+        String posterURL="https://image.tmdb.org/t/p/w500"+listMovies.get(i).getPosterSrc();
         MoviePosterLoadTask poster=new MoviePosterLoadTask(posterURL,holder.moviePoster);
         poster.execute();
         holder.movieTitle.setText(listMovies.get(i).getTitle());

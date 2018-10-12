@@ -47,7 +47,7 @@ public class GetMoviesParseTask extends AsyncTask<Void,Void,Void> {
             String url = myURL + optionTrending + "api_key=" + API_KEY_1;
             String callResult = makeServiceCall(url);
 
-        Log.e(TAG, "Response from url: " + callResult);
+        //Log.e(TAG, "Response from url: " + callResult);
         if (callResult != null) {
             try {
                 JSONObject jsonObj = new JSONObject(callResult);
@@ -65,19 +65,8 @@ public class GetMoviesParseTask extends AsyncTask<Void,Void,Void> {
                     String overview = c.getString("overview");
                     String posterSrc = c.getString("poster_path");
                     String voteAvg = c.getString("vote_average");
-                    // tmp hash map for single contact
-                    //HashMap<String, String> movie = new HashMap<>();
                     Movie movieElm=new Movie(id,title,release_date,original_language,overview,posterSrc,voteAvg);
 
-                    // adding each child node to HashMap key => value
-   /*                 movie.put("id", id);
-                    movie.put("title", title);
-                    movie.put("release_date", release_date);
-                    movie.put("original_language", original_language);
-                    movie.put("overview", overview);
-                    movie.put("posterSrc",posterSrc);
-                    movie.put("voteAvg",voteAvg);
-*/
 
                     // adding contact to contact list
                     movieList.add(movieElm);
