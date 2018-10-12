@@ -44,12 +44,12 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
             //TODO correct the different id to make the findViewById working => maybe use ButterKnife ?
             this.moviePlot=v.findViewById(R.id.moviePlot);
             this.movieTitle=v.findViewById(R.id.movieTitle);
-            this.movieDate=v.findViewById(R.id.movieDate);
-            this.movieRate=v.findViewById(R.id.movieRate);
-            this.movieLanguage=v.findViewById(R.id.movieLanguage);
+          //  this.movieDate=v.findViewById(R.id.movieDate);
+           // this.movieRate=v.findViewById(R.id.movieRate);
+           // this.movieLanguage=v.findViewById(R.id.movieLanguage);
             this.moviePoster=v.findViewById(R.id.moviePoster);
             this.movieShare=v.findViewById(R.id.shareButton);
-            this.movieFavorite=v.findViewById(R.id.favoriteButton);
+           // this.movieFavorite=v.findViewById(R.id.favoriteButton);
 
         }
     }
@@ -73,10 +73,10 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
         MoviePosterLoadTask poster=new MoviePosterLoadTask(posterURL,holder.moviePoster);
         poster.execute();
         holder.movieTitle.setText(listMovies.get(i).getTitle());
-        holder.movieDate.setText(listMovies.get(i).getRelease_date());
+       // holder.movieDate.setText(listMovies.get(i).getRelease_date());
         holder.moviePlot.setText(listMovies.get(i).getOverview());
 
-        switch(listMovies.get(i).getOriginal_language()){
+     /*   switch(listMovies.get(i).getOriginal_language()){
             case "en":
                 holder.movieLanguage.setText("English");
                 break;
@@ -86,8 +86,8 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
             default :
                 holder.movieLanguage.setText("Unknown language");
 
-        }
-        holder.movieRate.setText("vote average: "+listMovies.get(i).getVoteAvg());
+        }*/
+        //holder.movieRate.setText("Vote: "+listMovies.get(i).getVoteAvg());
         holder.movieShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,7 +97,7 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
             }
         });
 
-        holder.movieFavorite.setOnClickListener(new View.OnClickListener() {
+      /*  holder.movieFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -114,7 +114,7 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
                     e.printStackTrace();
                 }
             }
-        });
+        });*/
     }
     
 
