@@ -27,15 +27,18 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class MainPage extends AppCompatActivity implements OnLoadingListener {
     public static Context context;
     private GetMoviesParseTask mMovieParser = null;
     private DrawerLayout drawerLayout;
 
-    ArrayList<HashMap<String, String>> moviesList;
+    List<Movie> moviesList;
     RecyclerView recyclerView;
 
 
@@ -44,6 +47,7 @@ public class MainPage extends AppCompatActivity implements OnLoadingListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_scrolling);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        FloatingActionButton addBtn;
         setSupportActionBar(toolbar);
         context = this;
 
@@ -107,6 +111,7 @@ public class MainPage extends AppCompatActivity implements OnLoadingListener {
         );
 
         moviesList = new ArrayList<>();
+        moviesList=new ArrayList<Movie>();
         mMovieParser = new GetMoviesParseTask(this, moviesList);
         mMovieParser.execute();
 
@@ -129,11 +134,29 @@ public class MainPage extends AppCompatActivity implements OnLoadingListener {
 
 
 
-  /*  @Override
+    @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         Button share = findViewById(R.id.shareButton);
-        share.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton addBtn;
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String filename="favoris";
+                Movie content=new Movie;
+                FileOutputStream stream;
+                try{
+                    stream = v.getContext().openFileOutput(filename, Context.MODE_PRIVATE);
+                    stream.write(content.getBytes());
+                    stream.close();
+                    Log.e("DebugPerso","Film ajouté");
+
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        /*share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //sendSms();
