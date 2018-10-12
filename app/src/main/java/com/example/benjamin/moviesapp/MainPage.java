@@ -60,21 +60,34 @@ public class MainPage extends AppCompatActivity implements OnLoadingListener {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 menuItem.isChecked();
+                Intent intent;
 
                 switch (menuItem.getItemId()) {
                     case R.id.nav_local:
+                        Toast.makeText(MainPage.context,"Remove comments once class is implemented", Toast.LENGTH_SHORT).show();
+                        //intent = new Intent(MainPage.context,LocalMovies.class);
+                        //startActivity(intent);
                         // TO DO : Make new view to the Local Movies Page
                         return true;
 
                     case R.id.nav_favorites:
+                        Toast.makeText(MainPage.context,"Remove comments once class is implemented", Toast.LENGTH_SHORT).show();
+                        //intent = new Intent(MainPage.context,FavoritePage.class);
+                        //startActivity(intent);
                         // TO DO : Make new view to the Favorites Page
                         return true;
 
                     case R.id.nav_explore:
+                        Toast.makeText(MainPage.context,"Remove comments once class is implemented", Toast.LENGTH_SHORT).show();
+                        //intent = new Intent(MainPage.context,MainPage.class);
+                        //startActivity(intent);
                         // TO DO : Make new view to the Explore Page
                         return true;
 
                     case R.id.nav_about:
+                        Toast.makeText(MainPage.context,"Remove comments once class is implemented", Toast.LENGTH_SHORT).show();
+                        //intent = new Intent(MainPage.context,AboutPage.class);
+                        //startActivity(intent);
                         // TO DO : Make new view to the About Page
                         return true;
 

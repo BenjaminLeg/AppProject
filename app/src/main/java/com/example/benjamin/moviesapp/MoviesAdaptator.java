@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.service.chooser.ChooserTarget;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -37,6 +39,7 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
         private TextView movieRate;
         private ImageView moviePoster;
         private Button movieShare;
+        private Button movieExplore;
         private ImageButton movieFavorite;
 
         public ViewHolder (View v){
@@ -50,6 +53,7 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
             this.moviePoster=v.findViewById(R.id.moviePoster);
             this.movieShare=v.findViewById(R.id.shareButton);
            // this.movieFavorite=v.findViewById(R.id.favoriteButton);
+            this.movieExplore=v.findViewById(R.id.exploreButton);
 
 
         }
@@ -97,6 +101,16 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
 
             }
         });
+        holder.movieExplore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainPage.context, "Need to set required link", Toast.LENGTH_SHORT).show();
+             //   Intent intent = new Intent(MainPage.context, ShowMovie.class);
+              //  MainPage.context.startActivity(intent);
+            }
+        });
+
+        };
         /*
         holder.movieFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,7 +130,8 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
                 }
             }
         });*/
-    }
+
+
     
 
     @Override
