@@ -67,6 +67,7 @@ public class GetMoviesParseTask extends AsyncTask<Void,Void,Void> {
                     String voteAvg = c.getString("vote_average");
                     Movie movieElm=new Movie(id,title,release_date,original_language,overview,posterSrc,voteAvg);
 
+
                     // adding contact to contact list
                     movieList.add(movieElm);
                 }

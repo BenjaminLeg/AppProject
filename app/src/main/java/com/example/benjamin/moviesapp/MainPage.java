@@ -27,6 +27,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import io.realm.Realm;
+
 public class MainPage extends AppCompatActivity implements OnLoadingListener {
     public static Context context;
     private GetMoviesParseTask mMovieParser = null;
@@ -38,6 +40,7 @@ public class MainPage extends AppCompatActivity implements OnLoadingListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Realm.init(this);                               //Initialisation de realm pour le stockage local
         setContentView(R.layout.activity_main_scrolling);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         FloatingActionButton addBtn;
