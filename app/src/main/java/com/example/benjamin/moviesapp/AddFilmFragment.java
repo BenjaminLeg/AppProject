@@ -10,6 +10,9 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import io.realm.Realm;
 
 public class AddFilmFragment extends DialogFragment {
     private EditText title;
@@ -17,7 +20,7 @@ public class AddFilmFragment extends DialogFragment {
     private EditText date;
     private EditText rate;
     private EditText plot;
-
+    private static int favoriNb=1;
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable final Bundle savedInstanceState) {
@@ -33,8 +36,20 @@ public class AddFilmFragment extends DialogFragment {
                         date= rootView.findViewById(R.id.date);
                         rate= rootView.findViewById(R.id.rate);
                         plot= rootView.findViewById(R.id.plot);
-                        Movie movie=new Movie("add",title.getText().toString(),date.getText().toString(),lang.getText().toString(),plot.getText().toString(),"",rate.getText().toString());
 
+                        Realm realm= Realm.getDefaultInstance();
+                        realm.beginTransaction();
+
+                        Movie movie= realm.createObject(Movie.class);
+                        movie.setId("add"+favoriNb);
+                        movie.setTitle(title.getText().toString());
+                        movie.setRelease_date(date.getText().toString());
+                        movie.setOriginal_language(lang.getText().toString());
+                        movie.setOverview(plot.getText().toString());
+                        movie.setVoteAvg(rate.getText().toString());
+                        realm.commitTransaction();
+                        favoriNb++;
+                        Toast.makeText(rootView.getContext(),"Movie added",Toast.LENGTH_SHORT).show();
                     }
                 });
         return super.onCreateDialog(savedInstanceState);

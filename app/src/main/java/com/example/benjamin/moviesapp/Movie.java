@@ -12,6 +12,10 @@ public class Movie extends RealmObject {
     private String voteAvg;
     private Boolean favori;
 
+    public Movie(){
+
+    }
+
     public Movie(String id,String title, String release_date, String original_language,String overview, String poster_path, String vote_average){
         this.id=id;
         this.title=title;
