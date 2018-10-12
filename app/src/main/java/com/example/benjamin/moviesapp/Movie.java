@@ -1,8 +1,6 @@
 package com.example.benjamin.moviesapp;
 
-import io.realm.RealmObject;
-
-public class Movie extends RealmObject {
+public class Movie {
     private String id ;
     private String title;
     private String release_date;

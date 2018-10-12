@@ -66,13 +66,12 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
         if(favoris!=null) {
             favoris = new File(viewGroup.getContext().getFilesDir(), "favoris");
         }
-        favoris = new File(viewGroup.getContext().getFilesDir(), "favoris");
-        return new ViewHolder(view);
+  return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int i) {
-        String posterURL="https://image.tmdb.org/t/p/w500"+listMovies.get(i).getPosterSrc();
+        String posterURL="https://image.tmdb.org/t/p/w500"+listMovies.get(i).getPoster_path();
         MoviePosterLoadTask poster=new MoviePosterLoadTask(posterURL,holder.moviePoster);
         poster.execute();
         holder.movieTitle.setText(listMovies.get(i).getTitle());
