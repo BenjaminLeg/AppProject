@@ -51,6 +51,7 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
             this.movieShare=v.findViewById(R.id.shareButton);
            // this.movieFavorite=v.findViewById(R.id.favoriteButton);
 
+
         }
     }
 
@@ -96,8 +97,8 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
 
             }
         });
-
-      /*  holder.movieFavorite.setOnClickListener(new View.OnClickListener() {
+        /*
+        holder.movieFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

@@ -27,7 +27,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
-
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,6 +46,7 @@ public class MainPage extends AppCompatActivity implements OnLoadingListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_scrolling);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        FloatingActionButton addBtn;
         setSupportActionBar(toolbar);
         context = this;
 
@@ -84,31 +84,6 @@ public class MainPage extends AppCompatActivity implements OnLoadingListener {
                 }
             }
         });
-
-        drawerLayout.addDrawerListener(
-                new DrawerLayout.DrawerListener() {
-                    @Override
-                    public void onDrawerSlide(View drawerView, float slideOffset) {
-                        // Respond when the drawer's position changes
-                    }
-
-                    @Override
-                    public void onDrawerOpened(View drawerView) {
-                        // Respond when the drawer is opened
-                    }
-
-                    @Override
-                    public void onDrawerClosed(View drawerView) {
-                        // Respond when the drawer is closed
-                    }
-
-                    @Override
-                    public void onDrawerStateChanged(int newState) {
-                        // Respond when the drawer motion state changes
-                    }
-                }
-        );
-
 
         moviesList = new ArrayList<Movie>();
         mMovieParser = new GetMoviesParseTask(this, moviesList);
