@@ -34,9 +34,6 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
 
         private TextView moviePlot;
         private TextView movieTitle;
-        private TextView movieDate;
-        private TextView movieLanguage;
-        private TextView movieRate;
         private ImageView moviePoster;
         private Button movieShare;
         private Button movieExplore;
@@ -44,12 +41,8 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
 
         public ViewHolder (View v){
             super(v);
-            //TODO correct the different id to make the findViewById working => maybe use ButterKnife ?
             this.moviePlot=v.findViewById(R.id.moviePlot);
             this.movieTitle=v.findViewById(R.id.movieTitle);
-          //  this.movieDate=v.findViewById(R.id.movieDate);
-           // this.movieRate=v.findViewById(R.id.movieRate);
-           // this.movieLanguage=v.findViewById(R.id.movieLanguage);
             this.moviePoster=v.findViewById(R.id.moviePoster);
             this.movieShare=v.findViewById(R.id.shareButton);
            // this.movieFavorite=v.findViewById(R.id.favoriteButton);
@@ -78,21 +71,7 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
         MoviePosterLoadTask poster=new MoviePosterLoadTask(posterURL,holder.moviePoster);
         poster.execute();
         holder.movieTitle.setText(listMovies.get(i).getTitle());
-       // holder.movieDate.setText(listMovies.get(i).getRelease_date());
         holder.moviePlot.setText(listMovies.get(i).getOverview());
-
-     /*   switch(listMovies.get(i).getOriginal_language()){
-            case "en":
-                holder.movieLanguage.setText("English");
-                break;
-            case "fr":
-                holder.movieLanguage.setText("French");
-                break;
-            default :
-                holder.movieLanguage.setText("Unknown language");
-
-        }*/
-        //holder.movieRate.setText("Vote: "+listMovies.get(i).getVoteAvg());
         holder.movieShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,9 +83,10 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
         holder.movieExplore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainPage.context, "Need to set required link", Toast.LENGTH_SHORT).show();
-             //   Intent intent = new Intent(MainPage.context, ShowMovie.class);
-              //  MainPage.context.startActivity(intent);
+                String id = listMovies.get(i).getId();
+                Intent intent = new Intent(MainPage.context, MoviePresentation.class);
+                intent.putExtra("EXTRA_ID", id );
+                MainPage.context.startActivity(intent);
             }
         });
 

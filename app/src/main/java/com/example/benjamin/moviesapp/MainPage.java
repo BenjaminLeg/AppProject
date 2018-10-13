@@ -78,9 +78,8 @@ public class MainPage extends AppCompatActivity implements OnLoadingListener {
                         return true;
 
                     case R.id.nav_explore:
-                        Toast.makeText(MainPage.context,"Remove comments once class is implemented", Toast.LENGTH_SHORT).show();
-                        //intent = new Intent(MainPage.context,MainPage.class);
-                        //startActivity(intent);
+                        intent = new Intent(MainPage.context,MainPage.class);
+                        startActivity(intent);
                         // TO DO : Make new view to the Explore Page
                         return true;
 
@@ -143,7 +142,6 @@ public class MainPage extends AppCompatActivity implements OnLoadingListener {
 
     @Override
     public void loadChange(Void success) {
-        Toast.makeText(this, "Loading complete", Toast.LENGTH_SHORT).show();
         recyclerView = (RecyclerView) findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());

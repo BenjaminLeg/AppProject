@@ -5,25 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="left"
-    android:layout_margin="15dp"
     android:orientation="vertical">
-    <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        card_view:cardCornerRadius="8dp"
-        card_view:cardElevation="4dp"
-        android:layout_margin="16dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/moviePoster"
+                android:id="@+id/moviePosterPresentation"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-
+                android:layout_height="250dp"
                 android:scaleType="centerCrop"
                 tools:srcCompat="@tools:sample/avatars" />
 
@@ -36,7 +27,7 @@
 
 
                 <TextView
-                    android:id="@+id/movieTitle"
+                    android:id="@+id/movieTitlePresentation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
@@ -44,7 +35,30 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/moviePlot"
+                    android:id="@+id/moviePlotPresentation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:textColor="#555" />
+
+                <TextView
+                    android:id="@+id/movieRatePresentation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:textColor="#555"
+                    android:ellipsize="end"
+                    android:maxLines="3"/>
+                <TextView
+                    android:id="@+id/movieDatePresentation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:textColor="#555"
+                    android:ellipsize="end"
+                    android:maxLines="3"/>
+                <TextView
+                    android:id="@+id/movieLanguagePresentation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="10sp"
@@ -59,18 +73,12 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/shareButton"
-                    android:layout_width="133dp"
+                    android:id="@+id/shareButtonPresentation"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="share"
                     android:theme="@style/PrimaryFlatButton" />
-                <Button
-                    android:id="@+id/exploreButton"
-                    android:layout_width="133dp"
-                    android:layout_height="wrap_content"
-                    android:text="EXPLORE"
-                    android:theme="@style/PrimaryFlatButton" />
+
             </LinearLayout>
         </LinearLayout>
-    </android.support.v7.widget.CardView>
 </RelativeLayout>

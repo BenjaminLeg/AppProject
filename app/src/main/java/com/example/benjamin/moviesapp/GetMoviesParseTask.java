@@ -1,5 +1,6 @@
 package com.example.benjamin.moviesapp;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -24,72 +25,83 @@ import java.util.List;
 public class GetMoviesParseTask extends AsyncTask<Void,Void,Void> {
     private static final String API_KEY_1 = "c34c9bc397499bb9c5cf79c5f73350d6";
     private static final String myURL = "https://api.themoviedb.org/3/";
-    private static final String optionTrending = "trending/movie/day?";
+    private static final String optionTrending = "trending/movie/day";
+    private static final String optionMovie = "movie/";
     private static final String TAG = MainPage.class.getSimpleName();
+    private static String id = "";
+    private static String option = "";
+    public static ProgressDialog progress;
+
 
     private final OnLoadingListener listener;
-   // public ArrayList<HashMap<String,String>> movieList;
     public List<Movie> movieList;
 
     public GetMoviesParseTask(OnLoadingListener listener, List<Movie> movieList) {
         this.listener = listener;
         this.movieList = movieList;
+        this.option = optionTrending;
+        this.id="";
+    }
+    public GetMoviesParseTask(OnLoadingListener listener, List<Movie> movieList, String id) {
+        this.listener = listener;
+        this.movieList = movieList;
+        this.option = optionMovie;
+        this.id = id;
     }
 
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        Toast.makeText(MainPage.context, "Json Data is downloading", Toast.LENGTH_SHORT).show();
+        if(option == optionTrending)
+            progress = new ProgressDialog(MainPage.context);
+        else
+            progress = new ProgressDialog(MoviePresentation.getContext());
+        progress.setTitle("Loading");
+        progress.setMessage("Wait while loading...");
+        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.show();
     }
     @Override
     protected Void doInBackground(Void... params) {
-            String url = myURL + optionTrending + "api_key=" + API_KEY_1;
+            String url = myURL + option + id + "?" + "api_key=" + API_KEY_1;
             String callResult = makeServiceCall(url);
 
-        Log.e(TAG, "Response from url: " + callResult);
         if (callResult != null) {
-            try {
-                JSONObject jsonObj = new JSONObject(callResult);
-
-                // Getting JSON Array node
-                JSONArray movies = jsonObj.getJSONArray("results");
-
-                // looping through All Contacts
-                for (int i = 0; i < movies.length(); i++) {
-                    JSONObject c = movies.getJSONObject(i);
-                    String id = c.getString("id");
-                    String title = c.getString("title");
-                    String release_date = c.getString("release_date");
-                    String original_language = c.getString("original_language");
-                    String overview = c.getString("overview");
-                    String posterSrc = c.getString("poster_path");
-                    String voteAvg = c.getString("vote_average");
-                    // tmp hash map for single contact
-                    //HashMap<String, String> movie = new HashMap<>();
-                    Movie movieElm=new Movie(id,title,release_date,original_language,overview,posterSrc,voteAvg);
-
-                    // adding each child node to HashMap key => value
-   /*                 movie.put("id", id);
-                    movie.put("title", title);
-                    movie.put("release_date", release_date);
-                    movie.put("original_language", original_language);
-                    movie.put("overview", overview);
-                    movie.put("posterSrc",posterSrc);
-                    movie.put("voteAvg",voteAvg);
-*/
-
-                    // adding contact to contact list
-                    movieList.add(movieElm);
-                }
-            } catch (final JSONException e) {
-                Log.e(TAG, "Json parsing error: " + e.getMessage());
-
+            if(option == optionTrending){
+                TrendingBehavior(callResult);
+            }
+            else{
+                SearchBehavior(callResult);
             }
         }
 
         return null;
         }
+
+    private void SearchBehavior(String callResult) {
+        try {
+            JSONObject movies = new JSONObject(callResult);
+
+            // looping through All Contacts
+
+                String id = movies.getString("id");
+                String title = movies.getString("title");
+                String release_date = movies.getString("release_date");
+                String original_language = movies.getString("original_language");
+                String overview = movies.getString("overview");
+                String posterSrc = movies.getString("poster_path");
+                String voteAvg = movies.getString("vote_average");
+                Movie movieElm=new Movie(id,title,release_date,original_language,overview,posterSrc,voteAvg);
+
+
+                // adding contact to contact list
+                movieList.add(movieElm);
+        } catch (final JSONException e) {
+            Log.e(TAG, "Json parsing error: " + e.getMessage());
+
+        }
+    }
 
     private String makeServiceCall(String reqUrl) {
         String response = null;
@@ -137,5 +149,37 @@ public class GetMoviesParseTask extends AsyncTask<Void,Void,Void> {
     @Override
     protected void onPostExecute(Void aBoolean) {
         listener.loadChange(aBoolean);
+        progress.dismiss();
+    }
+
+    private void TrendingBehavior(String callResult){
+        try {
+
+            JSONObject jsonObj = new JSONObject(callResult);
+
+            // Getting JSON Array node
+            JSONArray movies = jsonObj.getJSONArray("results");
+
+            // looping through All Contacts
+            for (int i = 0; i < movies.length(); i++) {
+                JSONObject c = movies.getJSONObject(i);
+                String id = c.getString("id");
+                String title = c.getString("title");
+                String release_date = c.getString("release_date");
+                String original_language = c.getString("original_language");
+                String overview = c.getString("overview");
+                String posterSrc = c.getString("poster_path");
+                String voteAvg = c.getString("vote_average");
+                Movie movieElm=new Movie(id,title,release_date,original_language,overview,posterSrc,voteAvg);
+
+
+                // adding contact to contact list
+                movieList.add(movieElm);
+            }
+        } catch (final JSONException e) {
+            Log.e(TAG, "Json parsing error: " + e.getMessage());
+
+        }
+
     }
 }

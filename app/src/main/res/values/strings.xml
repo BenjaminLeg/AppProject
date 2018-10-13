@@ -3,9 +3,9 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_main_scrolling">Explore</string>
     <string name="numero">Numero</string>
-	<string name="sms_name">Envoie Sms</string>
-	<string name="message">Message</string>
-	<string name="envoyer">Envoyer</string>
+    <string name="sms_name">Envoie Sms</string>
+    <string name="message">Message</string>
+    <string name="envoyer">Envoyer</string>
     <string name="local_movies">Local Movies</string>
     <string name="favorites">Favorites</string>
     <string name="about">About</string>
