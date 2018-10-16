@@ -75,6 +75,7 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
         holder.movieShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(MainPage.context, SendSms.class);
                 MainPage.context.startActivity(intent);
 

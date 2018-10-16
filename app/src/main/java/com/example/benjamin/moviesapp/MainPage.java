@@ -4,8 +4,10 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -32,15 +34,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static android.Manifest.permission.SEND_SMS;
+
 public class MainPage extends AppCompatActivity implements OnLoadingListener {
     public static Context context;
     private GetMoviesParseTask mMovieParser = null;
+    private static final int PERMISSION_REQUEST_CODE = 200;
+    private static PackageManager packageMan;
 
     List<Movie> moviesList;
     RecyclerView recyclerView;
     DrawerLayout drawerLayout;
 
-
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +61,7 @@ public class MainPage extends AppCompatActivity implements OnLoadingListener {
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
 
         drawerLayout = findViewById(R.id.drawer_layout);
+
         NavigationView nav = findViewById(R.id.nav_view);
         nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -100,7 +107,7 @@ public class MainPage extends AppCompatActivity implements OnLoadingListener {
         moviesList = new ArrayList<Movie>();
         mMovieParser = new GetMoviesParseTask(this, moviesList);
         mMovieParser.execute();
-
+        request_Permissions();
 
     }
 
@@ -147,5 +154,12 @@ public class MainPage extends AppCompatActivity implements OnLoadingListener {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(new MoviesAdaptator(moviesList));
         
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void request_Permissions(){
+        if(checkSelfPermission(SEND_SMS) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]{SEND_SMS}, PERMISSION_REQUEST_CODE);
+        }
     }
 }

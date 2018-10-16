@@ -10,5 +10,6 @@
     <string name="favorites">Favorites</string>
     <string name="about">About</string>
     <string name="explore">Explore</string>
+    <string name="chooser_title">Select your Application</string>
 
 </resources>

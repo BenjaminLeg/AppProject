@@ -2,6 +2,7 @@ package com.example.benjamin.moviesapp;
 
 import android.app.Activity;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.gsm.SmsManager;
 import android.view.View;
@@ -15,6 +16,7 @@ public class SendSms extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.send_sms);
+
         //On récupère le bouton créé en XML grâce à son id
         Button btnEnvoie = (Button)findViewById(R.id.envoyer);
         //On récupère les deux EditText correspondant aux champs pour entrer le numéro et le message

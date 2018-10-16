@@ -1,15 +1,19 @@
 package com.example.benjamin.moviesapp;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import static android.Manifest.permission.SEND_SMS;
 
 public class MoviePresentation extends AppCompatActivity implements OnLoadingListener {
 
@@ -19,6 +23,8 @@ public class MoviePresentation extends AppCompatActivity implements OnLoadingLis
     private String id = "";
     private static Context context;
     private RecyclerView recyclerView;
+
+
 
     public static Context getContext() {
         return context;
@@ -35,6 +41,7 @@ public class MoviePresentation extends AppCompatActivity implements OnLoadingLis
         moviesList = new ArrayList<Movie>();
         mMovieParser = new GetMoviesParseTask(this, moviesList, id );
         mMovieParser.execute();
+
     }
 
     @Override

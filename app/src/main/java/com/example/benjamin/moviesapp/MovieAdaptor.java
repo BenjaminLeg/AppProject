@@ -1,7 +1,11 @@
 package com.example.benjamin.moviesapp;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,7 +72,17 @@ public class MovieAdaptor extends RecyclerView.Adapter<MovieAdaptor.ViewHolder> 
         poster.execute();
         viewHolder.movieTitle.setText(movie.getTitle());
         viewHolder.moviePlot.setText(movie.getOverview());
-        viewHolder.movieLanguage.setText(movie.getOriginal_language());
+        switch (movie.getOriginal_language()){
+            case "en":
+                viewHolder.movieLanguage.setText("English");
+                break;
+            case "fr":
+                viewHolder.movieLanguage.setText("French");
+                break;
+            default :
+                viewHolder.movieLanguage.setText("Unknown");
+                break;
+        }
         viewHolder.movieRate.setText(movie.getVoteAvg());
         viewHolder.movieDate.setText(movie.getRelease_date());
         viewHolder.movieShare.setOnClickListener(new View.OnClickListener() {
