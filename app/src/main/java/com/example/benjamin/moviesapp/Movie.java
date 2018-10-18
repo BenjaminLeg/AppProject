@@ -8,6 +8,7 @@ public class Movie {
     private String overview;
     private String posterSrc;
     private String voteAvg;
+    private String homePageUrl;
 
     public Movie(String id,String title, String release_date, String original_language,String overview, String poster_path, String vote_average){
         this.id=id;
@@ -18,6 +19,7 @@ public class Movie {
         this.posterSrc=poster_path;
         this.voteAvg=vote_average;
     }
+
 
     public String getId() {
         return id;
@@ -46,4 +48,5 @@ public class Movie {
     public String getVoteAvg() {
         return voteAvg;
     }
+
 }

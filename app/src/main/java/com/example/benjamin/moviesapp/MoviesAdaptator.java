@@ -47,7 +47,6 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
             this.movieTitle=v.findViewById(R.id.movieTitle);
             this.moviePoster=v.findViewById(R.id.moviePoster);
             this.movieShare=v.findViewById(R.id.shareButton);
-           // this.movieFavorite=v.findViewById(R.id.favoriteButton);
             this.movieExplore=v.findViewById(R.id.exploreButton);
 
 
@@ -77,9 +76,13 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
         holder.movieShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent intent = new Intent(v.getContext(), SendSms.class);
-                v.getContext().startActivity(intent);
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                String title = v.getResources().getString(R.string.chooser_title);
+                String url = "https://www.themoviedb.org/movie/";
+                intent.putExtra(Intent.EXTRA_TEXT, "Please check this movie : "+ url + listMovies.get(i).getId() );
+                intent.setType("text/plain");
+                Intent chooser = Intent.createChooser(intent, title);
+                v.getContext().startActivity(chooser);
 
             }
         });
@@ -92,27 +95,7 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
                 v.getContext().startActivity(intent);
             }
         });
-
-        };
-        /*
-        holder.movieFavorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String filename="favoris";
-                String content=listMovies.get(i).getId();
-                FileOutputStream stream;
-                try{
-                    stream = v.getContext().openFileOutput(filename, Context.MODE_PRIVATE);
-                    stream.write(content.getBytes());
-                    stream.close();
-                    Log.e("DebugPerso","favori ajouté");
-                    holder.movieFavorite.setImageResource(android.R.drawable.btn_star_big_on);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        });*/
+    };
 
 
     

@@ -89,13 +89,16 @@ public class MovieAdaptor extends RecyclerView.Adapter<MovieAdaptor.ViewHolder> 
                 viewHolder.movieLanguage.setText("Unknown");
                 break;
         }
-        viewHolder.movieRate.setText(movie.getVoteAvg());
+        viewHolder.movieRate.setText(movie.getVoteAvg()+ "/10");
         viewHolder.movieDate.setText(movie.getRelease_date());
         viewHolder.movieShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 String title = v.getResources().getString(R.string.chooser_title);
+                String url = "https://www.themoviedb.org/movie/";
+                intent.putExtra(Intent.EXTRA_TEXT, "Please check this movie : "+ url + movie.getId() );
+                intent.setType("text/plain");
                 Intent chooser = Intent.createChooser(intent, title);
                 v.getContext().startActivity(chooser);
 

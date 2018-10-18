@@ -11,5 +11,6 @@
     <string name="about">About</string>
     <string name="explore">Explore</string>
     <string name="chooser_title">Select your Application</string>
+    <string name="title_activity_main">MainActivity</string>
 
 </resources>
