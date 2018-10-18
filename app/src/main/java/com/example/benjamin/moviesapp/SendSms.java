@@ -17,6 +17,8 @@ public class SendSms extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.send_sms);
 
+
+
         //On récupère le bouton créé en XML grâce à son id
         Button btnEnvoie = (Button)findViewById(R.id.envoyer);
         //On récupère les deux EditText correspondant aux champs pour entrer le numéro et le message

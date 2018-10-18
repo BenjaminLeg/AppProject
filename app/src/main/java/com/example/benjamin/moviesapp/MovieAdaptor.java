@@ -1,6 +1,7 @@
 package com.example.benjamin.moviesapp;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
@@ -33,11 +34,16 @@ public class MovieAdaptor extends RecyclerView.Adapter<MovieAdaptor.ViewHolder> 
         private ImageView moviePoster;
         private Button movieShare;
         private ImageButton movieFavorite;
+        private static Context context;
+        private static PackageManager packet;
 
 
         public ViewHolder(View v) {
 
             super(v);
+            context = v.getContext();
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            String title = v.getResources().getString(R.string.chooser_title);
             this.moviePlot = v.findViewById(R.id.moviePlotPresentation);
             this.movieTitle = v.findViewById(R.id.movieTitlePresentation);
             this.moviePoster = v.findViewById(R.id.moviePosterPresentation);
@@ -88,8 +94,10 @@ public class MovieAdaptor extends RecyclerView.Adapter<MovieAdaptor.ViewHolder> 
         viewHolder.movieShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MoviePresentation.getContext(), SendSms.class);
-                MoviePresentation.getContext().startActivity(intent);
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                String title = v.getResources().getString(R.string.chooser_title);
+                Intent chooser = Intent.createChooser(intent, title);
+                v.getContext().startActivity(chooser);
 
             }
         });

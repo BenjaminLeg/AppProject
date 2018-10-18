@@ -38,9 +38,11 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
         private Button movieShare;
         private Button movieExplore;
         private ImageButton movieFavorite;
+        private static Context context;
 
         public ViewHolder (View v){
             super(v);
+            context = v.getContext();
             this.moviePlot=v.findViewById(R.id.moviePlot);
             this.movieTitle=v.findViewById(R.id.movieTitle);
             this.moviePoster=v.findViewById(R.id.moviePoster);
@@ -76,8 +78,8 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(MainPage.context, SendSms.class);
-                MainPage.context.startActivity(intent);
+                Intent intent = new Intent(v.getContext(), SendSms.class);
+                v.getContext().startActivity(intent);
 
             }
         });
@@ -85,9 +87,9 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
             @Override
             public void onClick(View v) {
                 String id = listMovies.get(i).getId();
-                Intent intent = new Intent(MainPage.context, MoviePresentation.class);
+                Intent intent = new Intent(v.getContext(), MoviePresentation.class);
                 intent.putExtra("EXTRA_ID", id );
-                MainPage.context.startActivity(intent);
+                v.getContext().startActivity(intent);
             }
         });
 

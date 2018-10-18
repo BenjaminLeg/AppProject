@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.SEND_SMS;
 
 public class MainPage extends AppCompatActivity implements OnLoadingListener {
@@ -158,8 +159,8 @@ public class MainPage extends AppCompatActivity implements OnLoadingListener {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void request_Permissions(){
-        if(checkSelfPermission(SEND_SMS) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this, new String[]{SEND_SMS}, PERMISSION_REQUEST_CODE);
+        if(checkSelfPermission(READ_EXTERNAL_STORAGE ) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(SEND_SMS) != PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(this, new String[]{SEND_SMS, READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
         }
     }
 }
