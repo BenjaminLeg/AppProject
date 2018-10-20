@@ -7,6 +7,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.media.session.MediaControllerCompat;
 import android.support.v4.media.session.MediaSessionCompat;
@@ -105,11 +106,16 @@ public class MoviePresentation extends AppCompatActivity implements OnLoadingLis
     }
 
     @Override
-    public void loadChange(Void success) {
+    public void loadChange(Boolean success) {
         recyclerView = findViewById(R.id.moviePresentation);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(new MovieAdaptor(moviesList.get(0)));
+        if(success) {
+            recyclerView.setAdapter(new MovieAdaptor(moviesList.get(0)));
+        }
+        else {
+            Snackbar.make(this.recyclerView, "No Internet Connexion", Snackbar.LENGTH_LONG).show();
+        }
     }
 
 }

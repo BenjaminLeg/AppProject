@@ -36,6 +36,7 @@ import java.util.List;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.SEND_SMS;
+import android.widget.ProgressBar;
 
 public class MainPage extends AppCompatActivity implements OnLoadingListener {
     public static Context context;
@@ -46,6 +47,8 @@ public class MainPage extends AppCompatActivity implements OnLoadingListener {
     List<Movie> moviesList;
     RecyclerView recyclerView;
     DrawerLayout drawerLayout;
+    private ProgressBar spinner;
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -149,18 +152,24 @@ public class MainPage extends AppCompatActivity implements OnLoadingListener {
     }
 
     @Override
-    public void loadChange(Void success) {
+    public void loadChange(Boolean success) {
         recyclerView = (RecyclerView) findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(new MoviesAdaptator(moviesList));
+        if(success) {
+            recyclerView.setAdapter(new MoviesAdaptator(moviesList));
+        }
+        else {
+            Snackbar.make(this.recyclerView, "No Internet Connexion", Snackbar.LENGTH_LONG).show();
+        }
         
     }
 
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void request_Permissions(){
-        if(checkSelfPermission(READ_EXTERNAL_STORAGE ) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(SEND_SMS) != PackageManager.PERMISSION_GRANTED){
-                ActivityCompat.requestPermissions(this, new String[]{SEND_SMS, READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+        if(checkSelfPermission(SEND_SMS) != PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(this, new String[]{SEND_SMS}, PERMISSION_REQUEST_CODE);
         }
     }
 }

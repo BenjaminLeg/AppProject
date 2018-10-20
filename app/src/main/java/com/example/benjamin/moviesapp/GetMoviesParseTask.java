@@ -31,6 +31,7 @@ public class GetMoviesParseTask extends AsyncTask<Void,Void,Void> {
     private static String id = "";
     private static String option = "";
     public static ProgressDialog progress;
+    private static Boolean success = false;
 
 
     private final OnLoadingListener listener;
@@ -53,14 +54,16 @@ public class GetMoviesParseTask extends AsyncTask<Void,Void,Void> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        if(option == optionTrending)
+        if(option == optionTrending) {
             progress = new ProgressDialog(MainPage.context);
-        else
+        }
+        else {
             progress = new ProgressDialog(MoviePresentation.getContext());
-        progress.setTitle("Loading");
-        progress.setMessage("Wait while loading...");
-        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
-        progress.show();
+        }
+            progress.setTitle("Loading");
+            progress.setMessage("Wait while loading...");
+            progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+            progress.show();
     }
     @Override
     protected Void doInBackground(Void... params) {
@@ -109,9 +112,13 @@ public class GetMoviesParseTask extends AsyncTask<Void,Void,Void> {
             URL url = new URL(reqUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
+            int responseCode = conn.getResponseCode();
             // read the response
-            InputStream in = new BufferedInputStream(conn.getInputStream());
-            response = convertStreamToString(in);
+            if(responseCode == HttpURLConnection.HTTP_OK) {
+                this.success = true;
+                InputStream in = new BufferedInputStream(conn.getInputStream());
+                response = convertStreamToString(in);
+            }
         } catch (MalformedURLException e) {
             Log.e(TAG, "MalformedURLException: " + e.getMessage());
         } catch (ProtocolException e) {
@@ -148,7 +155,7 @@ public class GetMoviesParseTask extends AsyncTask<Void,Void,Void> {
 
     @Override
     protected void onPostExecute(Void aBoolean) {
-        listener.loadChange(aBoolean);
+        listener.loadChange(this.success);
         progress.dismiss();
     }
 

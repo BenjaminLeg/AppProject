@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -33,6 +34,7 @@ public class MovieAdaptor extends RecyclerView.Adapter<MovieAdaptor.ViewHolder> 
         private TextView movieDate;
         private ImageView moviePoster;
         private Button movieShare;
+        private Button actionMovieRate;
         private ImageButton movieFavorite;
         private static Context context;
         private static PackageManager packet;
@@ -51,6 +53,7 @@ public class MovieAdaptor extends RecyclerView.Adapter<MovieAdaptor.ViewHolder> 
             this.movieLanguage = v.findViewById(R.id.movieLanguagePresentation);
             this.movieRate = v.findViewById(R.id.movieRatePresentation);
             this.movieDate = v.findViewById(R.id.movieDatePresentation);
+            this.actionMovieRate = v.findViewById(R.id.RateButtonPresentation);
             //this.movieFavorite=v.findViewById(R.id.favoriteButton);
 
         }
@@ -101,6 +104,14 @@ public class MovieAdaptor extends RecyclerView.Adapter<MovieAdaptor.ViewHolder> 
                 intent.setType("text/plain");
                 Intent chooser = Intent.createChooser(intent, title);
                 v.getContext().startActivity(chooser);
+
+            }
+        });
+
+        viewHolder.actionMovieRate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment rateFrag = new Fragment();
 
             }
         });
