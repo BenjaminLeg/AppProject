@@ -1,4 +1,4 @@
-package com.example.benjamin.moviesapp;
+package Enums;
 
 public enum MovieOption {
     TRENDING,

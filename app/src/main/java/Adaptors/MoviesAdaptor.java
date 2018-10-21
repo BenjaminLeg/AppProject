@@ -1,15 +1,9 @@
-package com.example.benjamin.moviesapp;
+package Adaptors;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Icon;
-import android.net.Uri;
-import android.service.chooser.ChooserTarget;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,15 +11,18 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.benjamin.moviesapp.R;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.util.List;
 
+import Activities.MoviePresentation;
+import Elements.Movie;
+import Tasks.MoviePosterLoadTask;
 
-public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHolder> {
+
+public class MoviesAdaptor extends RecyclerView.Adapter<MoviesAdaptor.ViewHolder> {
 
     private List<Movie> listMovies;
     private File favoris;
@@ -53,7 +50,7 @@ public class MoviesAdaptator extends RecyclerView.Adapter<MoviesAdaptator.ViewHo
         }
     }
 
-    public MoviesAdaptator(List<Movie> moviesResults){
+    public MoviesAdaptor(List<Movie> moviesResults){
         listMovies=moviesResults;
 
     }

@@ -1,29 +1,23 @@
-package com.example.benjamin.moviesapp;
+package Activities;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.media.MediaPlayer;
-import android.net.Uri;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.media.session.MediaControllerCompat;
-import android.support.v4.media.session.MediaSessionCompat;
-import android.support.v4.media.session.PlaybackStateCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.SurfaceHolder;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.VideoView;
 
-import java.net.URI;
-import java.net.URL;
+import Elements.Movie;
+import Tasks.GetMoviesParseTask;
+import Adaptors.MovieAdaptor;
+import Enums.MovieOption;
+import Interfaces.OnLoadingListener;
+import com.example.benjamin.moviesapp.R;
+
 import java.util.ArrayList;
 import java.util.List;
 

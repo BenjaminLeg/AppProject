@@ -1,4 +1,4 @@
-package com.example.benjamin.moviesapp;
+package Elements;
 
 public class Movie {
     private String id ;

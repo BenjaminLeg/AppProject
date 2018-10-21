@@ -1,9 +1,12 @@
-package com.example.benjamin.moviesapp;
+package Tasks;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
+
+import Elements.Movie;
+import Enums.MovieOption;
+import Interfaces.OnLoadingListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,9 +21,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+
+import Activities.MainPage;
+import Activities.MoviePresentation;
 
 public class GetMoviesParseTask extends AsyncTask<Void,Void,Void> {
     private static final String API_KEY_1 = "c34c9bc397499bb9c5cf79c5f73350d6";
@@ -38,7 +42,7 @@ public class GetMoviesParseTask extends AsyncTask<Void,Void,Void> {
     private final OnLoadingListener listener;
     public List<Movie> movieList;
 
-    public GetMoviesParseTask(OnLoadingListener listener,MovieOption option, List<Movie> movieList, String id) {
+    public GetMoviesParseTask(OnLoadingListener listener, MovieOption option, List<Movie> movieList, String id) {
         this.listener = listener;
         this.movieList = movieList;
         switch (option){

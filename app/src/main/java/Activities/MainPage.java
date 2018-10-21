@@ -1,6 +1,5 @@
-package com.example.benjamin.moviesapp;
+package Activities;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,31 +12,30 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.recyclerview.extensions.ListAdapter;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
-import java.io.FileOutputStream;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.SEND_SMS;
 import android.widget.ProgressBar;
+
+import Elements.Movie;
+import Fragments.BlankFragment;
+import Tasks.GetMoviesParseTask;
+import Enums.MovieOption;
+import Adaptors.MoviesAdaptor;
+import Interfaces.OnLoadingListener;
+import com.example.benjamin.moviesapp.R;
 
 public class MainPage extends AppCompatActivity implements OnLoadingListener {
     public static Context context;
@@ -170,7 +168,7 @@ public class MainPage extends AppCompatActivity implements OnLoadingListener {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         if(success) {
-            recyclerView.setAdapter(new MoviesAdaptator(moviesList));
+            recyclerView.setAdapter(new MoviesAdaptor(moviesList));
         }
         else {
             Snackbar.make(this.recyclerView, "No Internet Connexion", Snackbar.LENGTH_LONG).show();

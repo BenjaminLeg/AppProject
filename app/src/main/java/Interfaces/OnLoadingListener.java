@@ -1,4 +1,4 @@
-package com.example.benjamin.moviesapp;
+package Interfaces;
 
 public interface OnLoadingListener {
     void loadChange(Boolean success);
