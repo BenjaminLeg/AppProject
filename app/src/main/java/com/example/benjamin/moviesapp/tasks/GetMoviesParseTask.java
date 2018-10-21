@@ -1,12 +1,13 @@
-package Tasks;
+package com.example.benjamin.moviesapp.tasks;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import Elements.Movie;
-import Enums.MovieOption;
-import Interfaces.OnLoadingListener;
+import com.example.benjamin.moviesapp.activities.ActivityDiscover;
+import com.example.benjamin.moviesapp.elements.Movie;
+import com.example.benjamin.moviesapp.enums.MovieOption;
+import com.example.benjamin.moviesapp.interfaces.OnLoadingListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,16 +24,17 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.util.List;
 
-import Activities.MainPage;
-import Activities.MoviePresentation;
+import com.example.benjamin.moviesapp.activities.ActivityTrending;
+import com.example.benjamin.moviesapp.activities.MoviePresentation;
 
 public class GetMoviesParseTask extends AsyncTask<Void,Void,Void> {
     private static final String API_KEY_1 = "c34c9bc397499bb9c5cf79c5f73350d6";
     private static final String myURL = "https://api.themoviedb.org/3/";
     private static final String optionTrending = "trending/movie/day";
     private static final String optionMovie = "movie/";
-    private static final String optionDiscover = "dicover/movie";
-    private static final String TAG = MainPage.class.getSimpleName();
+    private static final String optionDiscover = "discover/movie";
+    private static String page = "";
+    private static final String TAG = ActivityTrending.class.getSimpleName();
     private static String id = "";
     private static String option = "";
     public static ProgressDialog progress;
@@ -42,18 +44,20 @@ public class GetMoviesParseTask extends AsyncTask<Void,Void,Void> {
     private final OnLoadingListener listener;
     public List<Movie> movieList;
 
-    public GetMoviesParseTask(OnLoadingListener listener, MovieOption option, List<Movie> movieList, String id) {
+    public GetMoviesParseTask(OnLoadingListener listener, MovieOption option, List<Movie> movieList, String id, int page) {
         this.listener = listener;
         this.movieList = movieList;
         switch (option){
             case DISCOVER:
                 this.option = optionDiscover;
+                this.page = "&page="+ Integer.toString(page);
                 break;
             case SEARCH:
                 this.option = optionMovie;
                 break;
             case TRENDING:
                 this.option = optionTrending;
+                this.page = "&page="+ Integer.toString(page);
                 break;
 
         }
@@ -64,12 +68,22 @@ public class GetMoviesParseTask extends AsyncTask<Void,Void,Void> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        if(option == optionTrending) {
-            progress = new ProgressDialog(MainPage.context);
+       switch (this.option){
+            case optionTrending:
+                progress = new ProgressDialog(ActivityTrending.context);
+                break;
+            case optionDiscover:
+                progress = new ProgressDialog(ActivityDiscover.context);
+                break;
+            case optionMovie:
+                progress = new ProgressDialog(MoviePresentation.getContext());
+                break;
+            default:
+                progress = new ProgressDialog(ActivityTrending.context);
+                break;
+
         }
-        else {
-            progress = new ProgressDialog(MoviePresentation.getContext());
-        }
+
             progress.setTitle("Loading");
             progress.setMessage("Wait while loading...");
             progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
@@ -77,7 +91,7 @@ public class GetMoviesParseTask extends AsyncTask<Void,Void,Void> {
     }
     @Override
     protected Void doInBackground(Void... params) {
-            String url = myURL + option + id + "?" + "api_key=" + API_KEY_1;
+            String url = myURL + option + id + "?" + "api_key=" + API_KEY_1 + page;
             String callResult = makeServiceCall(url);
 
         if (callResult != null) {

@@ -1,4 +1,4 @@
-package Activities;
+package com.example.benjamin.moviesapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,7 +25,7 @@ public class AppActivity extends AppCompatActivity {
 
                 {
                     sleep(4000);
-                    Intent intent = new Intent(getApplicationContext(), MainPage.class);
+                    Intent intent = new Intent(getApplicationContext(), ActivityTrending.class);
                     startActivity(intent);
                     finish();
                 }

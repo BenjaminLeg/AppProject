@@ -1,4 +1,4 @@
-package Tasks;
+package com.example.benjamin.moviesapp.tasks;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

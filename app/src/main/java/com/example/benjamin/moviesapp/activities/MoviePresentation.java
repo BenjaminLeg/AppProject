@@ -1,4 +1,4 @@
-package Activities;
+package com.example.benjamin.moviesapp.activities;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -11,11 +11,11 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.ImageButton;
 import android.widget.VideoView;
 
-import Elements.Movie;
-import Tasks.GetMoviesParseTask;
-import Adaptors.MovieAdaptor;
-import Enums.MovieOption;
-import Interfaces.OnLoadingListener;
+import com.example.benjamin.moviesapp.elements.Movie;
+import com.example.benjamin.moviesapp.tasks.GetMoviesParseTask;
+import com.example.benjamin.moviesapp.adaptors.MovieAdaptor;
+import com.example.benjamin.moviesapp.enums.MovieOption;
+import com.example.benjamin.moviesapp.interfaces.OnLoadingListener;
 import com.example.benjamin.moviesapp.R;
 
 import java.util.ArrayList;
@@ -48,7 +48,7 @@ public class MoviePresentation extends AppCompatActivity implements OnLoadingLis
         this.id= extras.getString("EXTRA_ID");
 
         moviesList = new ArrayList<Movie>();
-        mMovieParser = new GetMoviesParseTask(this,MovieOption.SEARCH, moviesList, id );
+        mMovieParser = new GetMoviesParseTask(this,MovieOption.SEARCH, moviesList, id, 0 );
         mMovieParser.execute();
 
 
@@ -65,6 +65,11 @@ public class MoviePresentation extends AppCompatActivity implements OnLoadingLis
         else {
             Snackbar.make(this.recyclerView, "No Internet Connexion", Snackbar.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public void onLoadMore() {
+
     }
 
 }

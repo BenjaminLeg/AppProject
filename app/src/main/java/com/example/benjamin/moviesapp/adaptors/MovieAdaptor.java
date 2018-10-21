@@ -1,4 +1,4 @@
-package Adaptors;
+package com.example.benjamin.moviesapp.adaptors;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,8 +18,8 @@ import com.example.benjamin.moviesapp.R;
 
 import java.io.File;
 
-import Elements.Movie;
-import Tasks.MoviePosterLoadTask;
+import com.example.benjamin.moviesapp.elements.Movie;
+import com.example.benjamin.moviesapp.tasks.MoviePosterLoadTask;
 
 public class MovieAdaptor extends RecyclerView.Adapter<MovieAdaptor.ViewHolder> {
 
