@@ -21,7 +21,6 @@
                 android:id="@+id/moviePosterPresentation"
                 android:layout_width="match_parent"
                 android:layout_height="520dp"
-                android:layout_above="@id/favButton"
                 android:scaleType="centerCrop"
                 tools:srcCompat="@tools:sample/avatars" />
 

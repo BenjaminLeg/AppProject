@@ -54,53 +54,8 @@ public class MoviePresentation extends AppCompatActivity implements OnLoadingLis
         this.id= extras.getString("EXTRA_ID");
 
         moviesList = new ArrayList<Movie>();
-        mMovieParser = new GetMoviesParseTask(this, moviesList, id );
+        mMovieParser = new GetMoviesParseTask(this,MovieOption.SEARCH, moviesList, id );
         mMovieParser.execute();
-
-   /*     videoView = findViewById(R.id.videoView);
-        btnPlayPause = (ImageButton) findViewById(R.id.btn_play_pause);
-        btnPlayPause.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog = new ProgressDialog(MoviePresentation.this);
-                dialog.setMessage("Please wait...");
-                dialog.setCanceledOnTouchOutside(false);
-                dialog.show();
-            }
-        });
-
-        try{
-            if(!videoView.isPlaying()){
-                Uri uri = Uri.parse(videoURL);
-                videoView.setVideoURI(uri);
-                videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        btnPlayPause.setImageResource(R.drawable.ic_play);
-                    }
-                });
-            }
-            else{
-                    videoView.pause();
-                    btnPlayPause.setImageResource(R.drawable.ic_pause);
-            }
-
-
-        }
-        catch(Exception e){
-
-        }
-        videoView.requestFocus();
-        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                dialog.dismiss();
-                mp.setLooping(true);
-                videoView.start();
-            }
-        });
-
-*/
 
 
     }

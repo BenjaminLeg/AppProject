@@ -27,6 +27,7 @@ public class GetMoviesParseTask extends AsyncTask<Void,Void,Void> {
     private static final String myURL = "https://api.themoviedb.org/3/";
     private static final String optionTrending = "trending/movie/day";
     private static final String optionMovie = "movie/";
+    private static final String optionDiscover = "dicover/movie";
     private static final String TAG = MainPage.class.getSimpleName();
     private static String id = "";
     private static String option = "";
@@ -37,19 +38,24 @@ public class GetMoviesParseTask extends AsyncTask<Void,Void,Void> {
     private final OnLoadingListener listener;
     public List<Movie> movieList;
 
-    public GetMoviesParseTask(OnLoadingListener listener, List<Movie> movieList) {
+    public GetMoviesParseTask(OnLoadingListener listener,MovieOption option, List<Movie> movieList, String id) {
         this.listener = listener;
         this.movieList = movieList;
-        this.option = optionTrending;
-        this.id="";
-    }
-    public GetMoviesParseTask(OnLoadingListener listener, List<Movie> movieList, String id) {
-        this.listener = listener;
-        this.movieList = movieList;
-        this.option = optionMovie;
-        this.id = id;
-    }
+        switch (option){
+            case DISCOVER:
+                this.option = optionDiscover;
+                break;
+            case SEARCH:
+                this.option = optionMovie;
+                break;
+            case TRENDING:
+                this.option = optionTrending;
+                break;
 
+        }
+
+        this.id= id;
+    }
 
     @Override
     protected void onPreExecute() {
@@ -71,7 +77,7 @@ public class GetMoviesParseTask extends AsyncTask<Void,Void,Void> {
             String callResult = makeServiceCall(url);
 
         if (callResult != null) {
-            if(option == optionTrending){
+            if(option == optionTrending || option == optionDiscover){
                 TrendingBehavior(callResult);
             }
             else{

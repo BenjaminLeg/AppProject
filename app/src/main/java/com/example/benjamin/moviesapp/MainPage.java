@@ -12,6 +12,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -66,6 +67,10 @@ public class MainPage extends AppCompatActivity implements OnLoadingListener {
 
         drawerLayout = findViewById(R.id.drawer_layout);
 
+        moviesList = new ArrayList<Movie>();
+        mMovieParser = new GetMoviesParseTask(this,MovieOption.TRENDING, moviesList, "");
+        mMovieParser.execute();
+
         NavigationView nav = findViewById(R.id.nav_view);
         nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -94,6 +99,15 @@ public class MainPage extends AppCompatActivity implements OnLoadingListener {
                         // TO DO : Make new view to the Explore Page
                         return true;
 
+                    case R.id.nav_discover:
+                        setTitle("Blank Fragment");
+                        BlankFragment fragment = new BlankFragment();
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        fragmentManager.beginTransaction().replace(R.id.linear, fragment).commit();
+                        drawerLayout.closeDrawers();
+                        // TO DO : Make new view to the Explore Page
+                        return true;
+
                     case R.id.nav_about:
                         Toast.makeText(MainPage.context,"Remove comments once class is implemented", Toast.LENGTH_SHORT).show();
                         //intent = new Intent(MainPage.context,AboutPage.class);
@@ -105,12 +119,11 @@ public class MainPage extends AppCompatActivity implements OnLoadingListener {
                         drawerLayout.closeDrawers();
                         return true;
                 }
+
             }
         });
 
-        moviesList = new ArrayList<Movie>();
-        mMovieParser = new GetMoviesParseTask(this, moviesList);
-        mMovieParser.execute();
+
         request_Permissions();
 
     }

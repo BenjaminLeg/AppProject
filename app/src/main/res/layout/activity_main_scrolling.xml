@@ -12,19 +12,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation = "vertical">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <LinearLayout
+            android:id="@+id/linear"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            android:label="@string/title_activity_main_scrolling"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+                android:label="@string/title_activity_main_scrolling"/>
 
+            <include layout="@layout/content_main_scrolling" />
 
-        <include layout="@layout/content_main_scrolling" />
-
+        </LinearLayout>
     </FrameLayout>
+
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
