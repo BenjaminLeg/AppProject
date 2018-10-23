@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.benjamin.moviesapp.elements.Movie;
+
 import io.realm.Realm;
 
 public class AddFilmFragment extends DialogFragment {
