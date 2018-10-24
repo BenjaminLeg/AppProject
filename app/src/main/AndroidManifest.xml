@@ -7,6 +7,11 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE " />
 
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,8 +20,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.example.benjamin.moviesapp.activities.AppActivity"
+            android:name=".activities.AppActivity"
             android:label="@string/app_name"
+            android:launchMode="singleTask"
             android:noHistory="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
@@ -26,24 +32,21 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.benjamin.moviesapp.activities.ActivityTrending"
+            android:name=".activities.ActivityTrending"
             android:label="@string/title_activity_main_scrolling"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.example.benjamin.moviesapp.activities.MoviePresentation"
+            android:name=".activities.MoviePresentation"
             android:label="Movie" />
         <activity
-            android:name="com.example.benjamin.moviesapp.activities.ActivityDiscover"
+            android:name=".activities.ActivityDiscover"
             android:label="@string/title_activity_main"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="com.example.benjamin.moviesapp.activities.ActivityLocal"
-            android:label="Local"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name="com.example.benjamin.moviesapp.activities.ActivityFavorite"
-            android:label="Favorite"
-            android:theme="@style/AppTheme" />
+            android:name=".activities.LoginActivity"
+            android:label="@string/title_activity_login"></activity>
     </application>
 
 </manifest>

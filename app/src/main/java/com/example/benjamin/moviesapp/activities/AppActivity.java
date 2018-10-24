@@ -29,7 +29,7 @@ public class AppActivity extends AppCompatActivity {
 
                 {
                     sleep(4000);
-                    Intent intent = new Intent(getApplicationContext(), ActivityTrending.class);
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(intent);
                     finish();
                 }
