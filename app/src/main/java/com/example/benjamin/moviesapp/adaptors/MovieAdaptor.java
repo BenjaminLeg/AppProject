@@ -18,6 +18,8 @@ import com.example.benjamin.moviesapp.R;
 
 import java.io.File;
 
+import com.example.benjamin.moviesapp.activities.MoviePresentation;
+import com.example.benjamin.moviesapp.activities.PlayerActivity;
 import com.example.benjamin.moviesapp.elements.FavoriRealmObj;
 import com.example.benjamin.moviesapp.elements.Movie;
 import com.example.benjamin.moviesapp.tasks.MoviePosterLoadTask;
@@ -40,6 +42,7 @@ public class MovieAdaptor extends RecyclerView.Adapter<MovieAdaptor.ViewHolder> 
         private ImageView moviePoster;
         private Button movieShare;
         private Button actionMovieRate;
+        private Button actionSeeTrailer;
         private ImageButton movieFavorite;
         private static Context context;
         private static PackageManager packet;
@@ -49,8 +52,6 @@ public class MovieAdaptor extends RecyclerView.Adapter<MovieAdaptor.ViewHolder> 
 
             super(v);
             context = v.getContext();
-            Intent intent = new Intent(Intent.ACTION_SEND);
-            String title = v.getResources().getString(R.string.chooser_title);
             this.moviePlot = v.findViewById(R.id.moviePlotPresentation);
             this.movieTitle = v.findViewById(R.id.movieTitlePresentation);
             this.moviePoster = v.findViewById(R.id.moviePosterPresentation);
@@ -60,6 +61,9 @@ public class MovieAdaptor extends RecyclerView.Adapter<MovieAdaptor.ViewHolder> 
             this.movieDate = v.findViewById(R.id.movieDatePresentation);
             this.actionMovieRate = v.findViewById(R.id.RateButtonPresentation);
             this.movieFavorite=v.findViewById(R.id.favoriteButton);
+            this.actionSeeTrailer = v.findViewById(R.id.buttonVideo);
+            //this.movieFavorite=v.findViewById(R.id.favoriteButton);
+        }
 
         }
 
@@ -67,7 +71,6 @@ public class MovieAdaptor extends RecyclerView.Adapter<MovieAdaptor.ViewHolder> 
 
     public MovieAdaptor(Movie movieResult){
         this.movie=movieResult;
-
     }
 
     @NonNull
@@ -166,8 +169,9 @@ public class MovieAdaptor extends RecyclerView.Adapter<MovieAdaptor.ViewHolder> 
         viewHolder.actionMovieRate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment rateFrag = new Fragment();
-
+                Intent intent = new Intent(MoviePresentation.getContext(),PlayerActivity.class);
+                intent.putExtra("EXTRA_ID", movie.getId());
+                v.getContext().startActivity(intent);
             }
         });
 

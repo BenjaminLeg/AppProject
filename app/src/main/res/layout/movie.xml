@@ -106,6 +106,13 @@
                     android:text="rate"
                     android:theme="@style/PrimaryFlatButton"
                     android:layout_weight="1"/>
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/buttonVideo"
+                    android:text="Trailers"
+                    android:theme="@style/PrimaryFlatButton"
+                    android:layout_weight="1"/>
 
                 <ImageButton
                     android:layout_width="match_parent"
