@@ -24,12 +24,14 @@
         android:id="@+id/date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="release date"/>
+        android:hint="dd-MM-yyyy"
+        android:inputType="datetime"/>
     <EditText
         android:id="@+id/rate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Rate it"
+        android:hint="Rate it (0->10)"
+        android:inputType="number"
         />
     <EditText
         android:id="@+id/plot"

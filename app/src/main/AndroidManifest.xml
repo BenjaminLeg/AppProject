@@ -36,6 +36,10 @@
             android:name="com.example.benjamin.moviesapp.activities.ActivityDiscover"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name="com.example.benjamin.moviesapp.activities.ActivityLocal"
+            android:label="Local"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

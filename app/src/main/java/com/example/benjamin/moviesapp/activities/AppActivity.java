@@ -9,6 +9,10 @@ import android.view.MenuItem;
 
 import com.example.benjamin.moviesapp.R;
 
+
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+
 public class AppActivity extends AppCompatActivity {
 
     @Override
@@ -17,7 +21,7 @@ public class AppActivity extends AppCompatActivity {
         setContentView(R.layout.activity_app);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        Realm.init(this);
         Thread myThread = new Thread() {
             @Override
             public void run() {

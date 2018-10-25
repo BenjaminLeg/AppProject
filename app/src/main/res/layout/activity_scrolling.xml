@@ -25,6 +25,7 @@
                 android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
                 android:label="@string/title_activity_main_scrolling"/>
 
+
             <include layout="@layout/content_scrolling" />
 
         </LinearLayout>
@@ -37,6 +38,8 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:menu="@menu/drawer_view" />
+
+
 
 </android.support.v4.widget.DrawerLayout>
 

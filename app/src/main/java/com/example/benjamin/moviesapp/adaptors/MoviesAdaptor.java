@@ -44,7 +44,6 @@ public class MoviesAdaptor extends RecyclerView.Adapter<MoviesAdaptor.ViewHolder
         private ImageView moviePoster;
         private Button movieShare;
         private Button movieExplore;
-        private ImageButton movieFavorite;
         private static Context context;
 
         public ViewHolder (View v){
@@ -119,10 +118,13 @@ public class MoviesAdaptor extends RecyclerView.Adapter<MoviesAdaptor.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int i) {
 
-
-            String posterURL = "https://image.tmdb.org/t/p/w500" + listMovies.get(i).getPoster_path();
-            MoviePosterLoadTask poster = new MoviePosterLoadTask(posterURL, holder.moviePoster);
-            poster.execute();
+            if(listMovies.get(i).getId().startsWith("add")){
+                holder.moviePoster.setImageResource(R.drawable.bobinefilm);
+            }else{
+                String posterURL = "https://image.tmdb.org/t/p/w500" + listMovies.get(i).getPoster_path();
+                MoviePosterLoadTask poster = new MoviePosterLoadTask(posterURL, holder.moviePoster);
+                poster.execute();
+            }
             holder.movieTitle.setText(listMovies.get(i).getTitle());
             holder.moviePlot.setText(listMovies.get(i).getOverview());
             holder.movieShare.setOnClickListener(new View.OnClickListener() {
@@ -148,6 +150,8 @@ public class MoviesAdaptor extends RecyclerView.Adapter<MoviesAdaptor.ViewHolder
                     v.getContext().startActivity(intent);
                 }
             });
+
+
 
     };
 

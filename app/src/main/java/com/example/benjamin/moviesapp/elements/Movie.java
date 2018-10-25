@@ -1,8 +1,10 @@
 package com.example.benjamin.moviesapp.elements;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 public class Movie extends RealmObject {
+
     private String id ;
     private String title;
     private String release_date;
@@ -11,6 +13,8 @@ public class Movie extends RealmObject {
     private String posterSrc;
     private String voteAvg;
     private String homePageUrl;
+
+
 
     public Movie() {
     }
@@ -65,6 +69,18 @@ public class Movie extends RealmObject {
 
     public String getVoteAvg() {
         return voteAvg;
+    }
+
+    public String getPosterSrc() {
+        return posterSrc;
+    }
+
+    public String getHomePageUrl() {
+        return homePageUrl;
+    }
+
+    public void setHomePageUrl(String homePageUrl) {
+        this.homePageUrl = homePageUrl;
     }
 
 }

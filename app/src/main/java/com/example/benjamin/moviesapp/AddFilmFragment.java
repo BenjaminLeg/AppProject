@@ -15,7 +15,9 @@ import android.widget.Toast;
 
 import com.example.benjamin.moviesapp.elements.Movie;
 
+
 import io.realm.Realm;
+
 
 
 public class AddFilmFragment extends DialogFragment {
@@ -24,7 +26,7 @@ public class AddFilmFragment extends DialogFragment {
     private EditText date;
     private EditText rate;
     private EditText plot;
-    private static int favoriNb=1;
+    private int addNb;
 
     @NonNull
     @Override
@@ -43,23 +45,34 @@ public class AddFilmFragment extends DialogFragment {
                         plot= rootView.findViewById(R.id.plot);
 
 
-                        Realm realm= Realm.getDefaultInstance();
-                        realm.beginTransaction();
 
-                        Movie movie= realm.createObject(Movie.class,"add"+favoriNb);
-                        movie.setId(title.getText().toString());
-                        movie.setRelease_date(date.getText().toString());
-                        movie.setOriginal_language(lang.getText().toString());
-                        movie.setOverview(plot.getText().toString());
-                        movie.setVoteAvg(rate.getText().toString());
-                        realm.commitTransaction();
-                        favoriNb++;
-                        Toast.makeText(rootView.getContext(),"Movie added",Toast.LENGTH_SHORT).show();
-                        //Movie movie=new Movie("add",title.getText().toString(),date.getText().toString(),lang.getText().toString(),plot.getText().toString(),"",rate.getText().toString());
+                        String dateStr=date.getText().toString();
+                        String voteStr=rate.getText().toString();
+                        String titleStr=title.getText().toString();
+                        if(dateStr.matches("[0-9]{2}-[0-9]{2}-[0-9]{4}") && voteStr.matches("[0-9]{2}") && !(titleStr.isEmpty())) {
+                            Realm realm= Realm.getDefaultInstance();
+                            realm.beginTransaction();
+                            Movie movie = realm.createObject(Movie.class);
+                            addNb=(int)realm.where(Movie.class).count();
+                            addNb++;
 
+                            movie.setId("add" + addNb);
+                            movie.setTitle(titleStr);
+                            movie.setRelease_date(dateStr);
+                            movie.setOriginal_language(lang.getText().toString());
+                            movie.setOverview(plot.getText().toString());
+                            movie.setVoteAvg(voteStr);
+                            movie.setPosterSrc("R.drawable.bobinefilm");
+                            realm.commitTransaction();
+
+                            Toast.makeText(rootView.getContext(), "Movie added", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            Toast.makeText(rootView.getContext(), "Wrong movie's information", Toast.LENGTH_SHORT).show();
+                        }
 
                     }
                 });
-        return super.onCreateDialog(savedInstanceState);
+        return builder.create();
     }
 }

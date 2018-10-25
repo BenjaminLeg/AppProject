@@ -107,6 +107,15 @@
                     android:theme="@style/PrimaryFlatButton"
                     android:layout_weight="1"/>
 
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@android:drawable/btn_star_big_off"
+                    android:id="@+id/favoriteButton"
+                    android:theme="@style/PrimaryFlatButton"
+                    />
+
             </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

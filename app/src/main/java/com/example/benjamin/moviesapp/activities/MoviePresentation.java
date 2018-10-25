@@ -9,6 +9,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageButton;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.example.benjamin.moviesapp.elements.Movie;
@@ -20,6 +21,9 @@ import com.example.benjamin.moviesapp.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 
 public class MoviePresentation extends AppCompatActivity implements OnLoadingListener {
@@ -42,16 +46,26 @@ public class MoviePresentation extends AppCompatActivity implements OnLoadingLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Realm realm =Realm.getDefaultInstance();
         setContentView(R.layout.activity_movie_presentation);
         context = this;
         Bundle extras = getIntent().getExtras();
         this.id= extras.getString("EXTRA_ID");
 
         moviesList = new ArrayList<Movie>();
-        mMovieParser = new GetMoviesParseTask(this,MovieOption.SEARCH, moviesList, id, 0 );
-        mMovieParser.execute();
-
-
+        if(this.id.startsWith("add")){
+            RealmResults<Movie> movieLocal=realm.where(Movie.class).equalTo("id",this.id).findAll();
+            moviesList.addAll(movieLocal);
+            recyclerView = findViewById(R.id.moviePresentation);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
+            Toast.makeText(ActivityTrending.context,"Before Movie adaptator", Toast.LENGTH_SHORT).show();
+            recyclerView.setAdapter(new MovieAdaptor(moviesList.get(0)));
+        }
+        else{
+            mMovieParser = new GetMoviesParseTask(this,MovieOption.SEARCH, moviesList, id, 0 );
+            mMovieParser.execute();
+        }
     }
 
     @Override
@@ -59,7 +73,7 @@ public class MoviePresentation extends AppCompatActivity implements OnLoadingLis
         recyclerView = findViewById(R.id.moviePresentation);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        if(success) {
+        if(success||moviesList.get(0).getId().startsWith("add")) {
             recyclerView.setAdapter(new MovieAdaptor(moviesList.get(0)));
         }
         else {
