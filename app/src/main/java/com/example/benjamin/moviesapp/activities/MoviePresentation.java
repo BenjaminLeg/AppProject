@@ -2,12 +2,15 @@ package com.example.benjamin.moviesapp.activities;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.VideoView;
 
@@ -22,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MoviePresentation extends AppCompatActivity implements OnLoadingListener {
+public class MoviePresentation extends FragmentActivity implements OnLoadingListener{
 
     private Movie movie;
     private List<Movie> moviesList;
@@ -50,6 +53,7 @@ public class MoviePresentation extends AppCompatActivity implements OnLoadingLis
         moviesList = new ArrayList<Movie>();
         mMovieParser = new GetMoviesParseTask(this,MovieOption.SEARCH, moviesList, id, 0 );
         mMovieParser.execute();
+
 
 
     }

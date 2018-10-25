@@ -84,9 +84,9 @@ public class GetMoviesParseTask extends AsyncTask<Void,Void,Void> {
 
         }
 
-            progress.setTitle("Loading");
-            progress.setMessage("Wait while loading...");
-            progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+          //  progress.setTitle("Loading");
+           // progress.setMessage("Wait while loading...");
+            progress.setCancelable(true); // disable dismiss by tapping outside of the dialog
             progress.show();
     }
     @Override

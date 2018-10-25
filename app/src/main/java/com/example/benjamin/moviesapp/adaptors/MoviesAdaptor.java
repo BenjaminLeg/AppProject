@@ -34,7 +34,7 @@ public class MoviesAdaptor extends RecyclerView.Adapter<MoviesAdaptor.ViewHolder
     private File favoris;
     private int lastVisibleItem, totalItemCount;
     private OnLoadingListener onLoadingListener;
-    private int visibleThreshold = 1;
+    private int visibleThreshold = 6;
     private boolean loading;
 
     public static class ViewHolder extends RecyclerView.ViewHolder{

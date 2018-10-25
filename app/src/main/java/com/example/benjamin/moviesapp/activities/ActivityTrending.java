@@ -39,8 +39,6 @@ import com.example.benjamin.moviesapp.R;
 public class ActivityTrending extends AppCompatActivity implements OnLoadingListener, NavigationView.OnNavigationItemSelectedListener {
     public static Context context;
     private GetMoviesParseTask mMovieParser = null;
-    private static final int PERMISSION_REQUEST_CODE = 200;
-    private static PackageManager packageMan;
     private static int page = 1;
 
     List<Movie> moviesList;
@@ -49,7 +47,6 @@ public class ActivityTrending extends AppCompatActivity implements OnLoadingList
     private MoviesAdaptor mAdapter;
 
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,8 +74,6 @@ public class ActivityTrending extends AppCompatActivity implements OnLoadingList
         nav.setNavigationItemSelectedListener(this);
 
 
-        request_Permissions();
-
     }
 
     @Override
@@ -104,6 +99,7 @@ public class ActivityTrending extends AppCompatActivity implements OnLoadingList
         if(success) {
             if(page == 1){
                 recyclerView = (RecyclerView) findViewById(R.id.list);
+                recyclerView.setHasFixedSize(true);
                 recyclerView.setLayoutManager(new LinearLayoutManager(this));
                 recyclerView.setItemAnimator(new DefaultItemAnimator());
                 mAdapter = new MoviesAdaptor(moviesList, recyclerView);
@@ -134,12 +130,6 @@ public class ActivityTrending extends AppCompatActivity implements OnLoadingList
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public void request_Permissions(){
-        if(checkSelfPermission(SEND_SMS) != PackageManager.PERMISSION_GRANTED){
-                ActivityCompat.requestPermissions(this, new String[]{SEND_SMS}, PERMISSION_REQUEST_CODE);
-        }
-    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
