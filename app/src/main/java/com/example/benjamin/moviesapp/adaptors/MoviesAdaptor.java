@@ -17,9 +17,11 @@ import android.widget.TextView;
 import com.example.benjamin.moviesapp.R;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.benjamin.moviesapp.activities.MoviePresentation;
+import com.example.benjamin.moviesapp.elements.FavoriRealmObj;
 import com.example.benjamin.moviesapp.elements.Movie;
 import com.example.benjamin.moviesapp.interfaces.OnLoadingListener;
 import com.example.benjamin.moviesapp.tasks.MoviePosterLoadTask;
@@ -31,7 +33,7 @@ public class MoviesAdaptor extends RecyclerView.Adapter<MoviesAdaptor.ViewHolder
     private final int VIEW_PROG = 0;
 
     private List<Movie> listMovies;
-    private File favoris;
+    private List<FavoriRealmObj> listfavoris;
     private int lastVisibleItem, totalItemCount;
     private OnLoadingListener onLoadingListener;
     private int visibleThreshold = 1;
@@ -59,8 +61,39 @@ public class MoviesAdaptor extends RecyclerView.Adapter<MoviesAdaptor.ViewHolder
         }
     }
 
-    public MoviesAdaptor(List<Movie> moviesResults, RecyclerView recyclerView) {
+    public MoviesAdaptor() {
+    }
+
+    public MoviesAdaptor(List<Movie> moviesResults, RecyclerView recyclerView)  {
         listMovies = moviesResults;
+        listfavoris =new ArrayList<>();
+        if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
+
+            final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView
+                    .getLayoutManager();
+
+
+            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+
+                    totalItemCount = linearLayoutManager.getItemCount();
+                    lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
+                    if (!loading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
+                        // End has been reached
+                        // Do something
+                        if (onLoadingListener != null) {
+                            onLoadingListener.onLoadMore();
+                        }
+                        loading = true;
+                    }
+                }
+            });
+        }
+    }
+    public void MoviesAdaptor2(List<FavoriRealmObj> favorites,RecyclerView recyclerView){
+        listfavoris = favorites;
         if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
 
             final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView
@@ -100,7 +133,11 @@ public class MoviesAdaptor extends RecyclerView.Adapter<MoviesAdaptor.ViewHolder
 
     @Override
     public int getItemViewType(int position) {
-        return listMovies.get(position) != null ? VIEW_ITEM : VIEW_PROG;
+        if(listfavoris.isEmpty()) {
+            return listMovies.get(position) != null ? VIEW_ITEM : VIEW_PROG;
+        }else {
+            return listfavoris.get(position)!= null ? VIEW_ITEM :VIEW_PROG;
+        }
     }
 
 
@@ -117,10 +154,10 @@ public class MoviesAdaptor extends RecyclerView.Adapter<MoviesAdaptor.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int i) {
-
-            if(listMovies.get(i).getId().startsWith("add")){
+        if(listfavoris.isEmpty()) {
+            if (listMovies.get(i).getId().startsWith("add")) {
                 holder.moviePoster.setImageResource(R.drawable.bobinefilm);
-            }else{
+            } else {
                 String posterURL = "https://image.tmdb.org/t/p/w500" + listMovies.get(i).getPoster_path();
                 MoviePosterLoadTask poster = new MoviePosterLoadTask(posterURL, holder.moviePoster);
                 poster.execute();
@@ -152,7 +189,40 @@ public class MoviesAdaptor extends RecyclerView.Adapter<MoviesAdaptor.ViewHolder
             });
 
 
+        }else {
+            if(listfavoris.get(i).getMovieId().startsWith("add")){
+                holder.moviePoster.setImageResource(R.drawable.bobinefilm);
+            }else{
+                String posterURL = "https://image.tmdb.org/t/p/w500" + listfavoris.get(i).getPosterSrc();
+                MoviePosterLoadTask poster = new MoviePosterLoadTask(posterURL, holder.moviePoster);
+                poster.execute();
+            }
+            holder.movieTitle.setText(listfavoris.get(i).getTitle());
+            holder.moviePlot.setText(listfavoris.get(i).getOverview());
+            holder.movieShare.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_SEND);
+                    String title = v.getResources().getString(R.string.chooser_title);
+                    String url = "https://www.themoviedb.org/movie/";
+                    intent.putExtra(Intent.EXTRA_TEXT, "Please check this movie : " + url + listfavoris.get(i).getMovieId());
+                    intent.setType("text/plain");
+                    Intent chooser = Intent.createChooser(intent, title);
+                    v.getContext().startActivity(chooser);
 
+                }
+            });
+
+            holder.movieExplore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String id = listfavoris.get(i).getMovieId();
+                    Intent intent = new Intent(v.getContext(), MoviePresentation.class);
+                    intent.putExtra("EXTRA_ID", id);
+                    v.getContext().startActivity(intent);
+                }
+            });
+        }
     };
 
 
@@ -160,9 +230,15 @@ public class MoviesAdaptor extends RecyclerView.Adapter<MoviesAdaptor.ViewHolder
 
     @Override
     public int getItemCount() {
+        if(listfavoris.isEmpty()){
+            return listMovies.size();
+        }else{
+            return listfavoris.size();
+        }
 
-        return listMovies.size();
     }
+
+
 
 
 

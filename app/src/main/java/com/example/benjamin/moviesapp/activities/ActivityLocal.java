@@ -107,32 +107,24 @@ public class ActivityLocal extends AppCompatActivity implements  NavigationView.
 
         switch (menuItem.getItemId()) {
             case R.id.nav_local:
-                //Toast.makeText(ActivityTrending.context,"Remove comments once class is implemented", Toast.LENGTH_SHORT).show();
-                //intent = new Intent(Activity.context,LocalMovies.class);
-                //startActivity(intent);
-                // TODO : Make new view to the Local Movies Page
                 drawerLayout.closeDrawers();
                 return true;
 
             case R.id.nav_favorites:
-                Toast.makeText(ActivityTrending.context,"Remove comments once class is implemented", Toast.LENGTH_SHORT).show();
-                //intent = new Intent(ActivityTrending.context,FavoritePage.class);
-                //startActivity(intent);
-                // TODO : Make new view to the Favorites Page
+                intent = new Intent(this,ActivityFavorite.class);
+                startActivity(intent);
                 drawerLayout.closeDrawers();
                 return true;
 
             case R.id.nav_explore:
                 intent = new Intent(this, ActivityTrending.class);
                 startActivity(intent);
-                // TODO : Make new view to the Explore Page
                 drawerLayout.closeDrawers();
                 return true;
 
             case R.id.nav_discover:
                 intent = new Intent(this, ActivityDiscover.class);
                 startActivity(intent);
-                // TODO : Make new view to the Explore Page
                 drawerLayout.closeDrawers();
                 return true;
 

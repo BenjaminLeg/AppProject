@@ -40,6 +40,10 @@
             android:name="com.example.benjamin.moviesapp.activities.ActivityLocal"
             android:label="Local"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name="com.example.benjamin.moviesapp.activities.ActivityFavorite"
+            android:label="Favorite"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>
