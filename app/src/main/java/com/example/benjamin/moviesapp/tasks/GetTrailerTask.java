@@ -53,7 +53,11 @@ public class GetTrailerTask extends AsyncTask<Void,Void,Response> {
     @Override
     protected void onPostExecute(Response aVoid) {
         if(aVoid != null) {
-            listener.onReponse(aVoid);
+            try {
+                listener.onReponse(aVoid);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

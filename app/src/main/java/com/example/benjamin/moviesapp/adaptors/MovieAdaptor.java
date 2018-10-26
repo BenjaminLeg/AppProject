@@ -1,9 +1,11 @@
 package com.example.benjamin.moviesapp.adaptors;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +19,7 @@ import com.example.benjamin.moviesapp.R;
 
 import java.io.File;
 
+import com.example.benjamin.moviesapp.RateFragment;
 import com.example.benjamin.moviesapp.activities.MoviePresentation;
 import com.example.benjamin.moviesapp.activities.PlayerActivity;
 import com.example.benjamin.moviesapp.elements.Movie;
@@ -109,6 +112,14 @@ public class MovieAdaptor extends RecyclerView.Adapter<MovieAdaptor.ViewHolder> 
                 Intent chooser = Intent.createChooser(intent, title);
                 v.getContext().startActivity(chooser);
 
+            }
+        });
+        viewHolder.actionMovieRate.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Dialog rateMessage = new Dialog(MoviePresentation.getContext());
+                rateMessage.setTitle("Hello");
+                rateMessage.show();
             }
         });
         viewHolder.actionSeeTrailer.setOnClickListener(new View.OnClickListener() {
