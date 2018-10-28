@@ -17,8 +17,6 @@ import android.widget.TextView;
 import com.example.benjamin.moviesapp.R;
 
 import java.io.File;
-
-import com.example.benjamin.moviesapp.RateFragment;
 import com.example.benjamin.moviesapp.activities.MoviePresentation;
 import com.example.benjamin.moviesapp.activities.PlayerActivity;
 import com.example.benjamin.moviesapp.elements.FavoriRealmObj;
@@ -63,12 +61,11 @@ public class MovieAdaptor extends RecyclerView.Adapter<MovieAdaptor.ViewHolder> 
             this.actionMovieRate = v.findViewById(R.id.RateButtonPresentation);
             this.movieFavorite=v.findViewById(R.id.favoriteButton);
             this.actionSeeTrailer = v.findViewById(R.id.buttonVideo);
-            //this.movieFavorite=v.findViewById(R.id.favoriteButton);
         }
 
         }
 
-    }
+
 
     public MovieAdaptor(Movie movieResult){
         this.movie=movieResult;
@@ -175,7 +172,7 @@ public class MovieAdaptor extends RecyclerView.Adapter<MovieAdaptor.ViewHolder> 
 
 
 
-        viewHolder.actionMovieRate.setOnClickListener(new View.OnClickListener() {
+        viewHolder.actionSeeTrailer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MoviePresentation.getContext(),PlayerActivity.class);
