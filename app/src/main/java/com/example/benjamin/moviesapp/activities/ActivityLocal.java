@@ -128,14 +128,6 @@ public class ActivityLocal extends AppCompatActivity implements  NavigationView.
                 drawerLayout.closeDrawers();
                 return true;
 
-            case R.id.nav_about:
-                Toast.makeText(ActivityTrending.context,"Remove comments once class is implemented", Toast.LENGTH_SHORT).show();
-                //intent = new Intent(ActivityTrending.context,AboutPage.class);
-                //startActivity(intent);
-                // TODO : Make new view to the About Page
-                drawerLayout.closeDrawers();
-                return true;
-
             default:
                 drawerLayout.closeDrawers();
                 return true;

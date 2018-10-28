@@ -118,14 +118,9 @@ public class ActivityDiscover extends AppCompatActivity implements OnLoadingList
 
     @Override
     public void onLoadMore() {
-        if(page <= 4) {
             page += 1;
             mMovieParser = new GetMoviesParseTask(this, MovieOption.DISCOVER, moviesList, "", page);
             mMovieParser.execute();
-        }
-        else {
-            Toast.makeText(this, "You are at the bottom", Toast.LENGTH_LONG).show();
-        }
 
     }
 
@@ -159,13 +154,6 @@ public class ActivityDiscover extends AppCompatActivity implements OnLoadingList
                 drawerLayout.closeDrawers();
                 return true;
 
-            case R.id.nav_about:
-                Toast.makeText(ActivityTrending.context,"Remove comments once class is implemented", Toast.LENGTH_SHORT).show();
-                //intent = new Intent(ActivityTrending.context,AboutPage.class);
-                //startActivity(intent);
-                // TODO : Make new view to the About Page
-                drawerLayout.closeDrawers();
-                return true;
 
             default:
                 drawerLayout.closeDrawers();

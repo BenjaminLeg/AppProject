@@ -51,7 +51,6 @@ public class ActivityTrending extends AppCompatActivity implements OnLoadingList
     private MoviesAdaptor mAdapter;
 
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,8 +84,6 @@ public class ActivityTrending extends AppCompatActivity implements OnLoadingList
         NavigationView nav = findViewById(R.id.nav_view);
         nav.setNavigationItemSelectedListener(this);
 
-
-        request_Permissions();
 
     }
 
@@ -131,24 +128,12 @@ public class ActivityTrending extends AppCompatActivity implements OnLoadingList
 
     @Override
     public void onLoadMore() {
-        if(page <= 4) {
             page += 1;
             mMovieParser = new GetMoviesParseTask(this, MovieOption.TRENDING, moviesList, "", page);
             mMovieParser.execute();
-        }
-        else {
-            Toast.makeText(this, "You are at the bottom", Toast.LENGTH_LONG).show();
-        }
-
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public void request_Permissions(){
-        if(checkSelfPermission(SEND_SMS) != PackageManager.PERMISSION_GRANTED){
-                ActivityCompat.requestPermissions(this, new String[]{SEND_SMS}, PERMISSION_REQUEST_CODE);
-        }
-    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -178,13 +163,6 @@ public class ActivityTrending extends AppCompatActivity implements OnLoadingList
                 drawerLayout.closeDrawers();
                 return true;
 
-            case R.id.nav_about:
-                Toast.makeText(ActivityTrending.context,"Remove comments once class is implemented", Toast.LENGTH_SHORT).show();
-                //intent = new Intent(ActivityTrending.context,AboutPage.class);
-                //startActivity(intent);
-                // TO DO : Make new view to the About Page
-                drawerLayout.closeDrawers();
-                return true;
 
             default:
                 drawerLayout.closeDrawers();

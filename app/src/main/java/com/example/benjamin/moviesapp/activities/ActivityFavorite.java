@@ -1,5 +1,6 @@
 package com.example.benjamin.moviesapp.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,7 +32,7 @@ import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class ActivityFavorite extends AppCompatActivity implements  NavigationView.OnNavigationItemSelectedListener{
+public class ActivityFavorite extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public static Context context;
 
     List<FavoriRealmObj> favoritesList;
@@ -39,10 +40,11 @@ public class ActivityFavorite extends AppCompatActivity implements  NavigationVi
     DrawerLayout drawerLayout;
     private MoviesAdaptor mAdapter;
 
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Realm realm =Realm.getDefaultInstance();
+        Realm realm = Realm.getDefaultInstance();
         setContentView(R.layout.activity_scrolling);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         FloatingActionButton addBtn;
@@ -56,29 +58,35 @@ public class ActivityFavorite extends AppCompatActivity implements  NavigationVi
         drawerLayout = findViewById(R.id.drawer_layout);
 
         favoritesList = new ArrayList<FavoriRealmObj>();
-        RealmResults<FavoriRealmObj> favoriteLocal=realm.where(FavoriRealmObj.class).findAll();
+        RealmResults<FavoriRealmObj> favoriteLocal = realm.where(FavoriRealmObj.class).findAll();
         favoritesList.addAll(favoriteLocal);
+
 
         NavigationView nav = findViewById(R.id.nav_view);
         nav.setNavigationItemSelectedListener(this);
 
-        addBtn=this.findViewById(R.id.addBtn);
+
+        addBtn = this.findViewById(R.id.addBtn);
+        addBtn.setVisibility(View.INVISIBLE);/*
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment addDiallog=new AddFilmFragment();
-                addDiallog.show(getSupportFragmentManager(),"add Movie");
+                DialogFragment addDiallog = new AddFilmFragment();
+                addDiallog.show(getSupportFragmentManager(), "add Movie");
             }
-        });
+        });*/
 
-        recyclerView = (RecyclerView) findViewById(R.id.list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        mAdapter = new MoviesAdaptor();
-        mAdapter.MoviesAdaptor2(favoritesList, recyclerView);
-        recyclerView.setAdapter(mAdapter);
-        mAdapter.notifyDataSetChanged();
-        mAdapter.setLoaded();
+        if (favoritesList.size() > 0) {
+
+            recyclerView = (RecyclerView) findViewById(R.id.list);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
+            mAdapter = new MoviesAdaptor();
+            mAdapter.MoviesAdaptor2(favoritesList, recyclerView);
+            recyclerView.setAdapter(mAdapter);
+            mAdapter.notifyDataSetChanged();
+            mAdapter.setLoaded();
+        }
     }
 
     @Override
@@ -105,7 +113,7 @@ public class ActivityFavorite extends AppCompatActivity implements  NavigationVi
 
         switch (menuItem.getItemId()) {
             case R.id.nav_local:
-                intent = new Intent(this,ActivityLocal.class);
+                intent = new Intent(this, ActivityLocal.class);
                 startActivity(intent);
                 drawerLayout.closeDrawers();
                 return true;
@@ -126,13 +134,6 @@ public class ActivityFavorite extends AppCompatActivity implements  NavigationVi
                 drawerLayout.closeDrawers();
                 return true;
 
-            case R.id.nav_about:
-                Toast.makeText(ActivityTrending.context,"Remove comments once class is implemented", Toast.LENGTH_SHORT).show();
-                //intent = new Intent(ActivityTrending.context,AboutPage.class);
-                //startActivity(intent);
-                // TODO : Make new view to the About Page
-                drawerLayout.closeDrawers();
-                return true;
 
             default:
                 drawerLayout.closeDrawers();
